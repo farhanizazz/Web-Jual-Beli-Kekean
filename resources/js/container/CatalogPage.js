@@ -40,7 +40,7 @@ export default function CatalogPage() {
                                 }}
                             >
                                 <CatalogItem
-                                    nama="Batik Duwo"
+                                    nama="Batik 0"
                                     item="1"
                                     harga={599000}
                                     catalogPage={true}

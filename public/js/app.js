@@ -32826,8 +32826,8 @@ function Navs() {
         desktop: 1200
       }
     }
-  });
-  (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.baseURL) = "http://kekean.pusproset.site/";
+  }); // axios.defaults.baseURL = "http://kekean.pusproset.site/";
+
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.headers.post.Accept) = "application/json";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.headers.post["Content-Type"]) = "application/json";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.withCredentials) = true;
@@ -33154,7 +33154,7 @@ function CatalogItem(props) {
               laptop: 10,
               desktop: 15
             },
-            children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ."
+            children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 4."
           })]
         })]
       })
@@ -34021,7 +34021,7 @@ function CatalogPage() {
             }
           },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_CatalogItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            nama: "Batik Duwo",
+            nama: "Batik 0",
             item: "1",
             harga: 599000,
             catalogPage: true

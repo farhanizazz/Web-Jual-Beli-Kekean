@@ -60,7 +60,7 @@ export default function CatalogItem(props) {
                             fontSize={{ mobile: 7, laptop: 10, desktop: 15 }}
                         >
                             Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. .
+                            elit. 4.
                         </Typography>
                     </Container>
                 </Box>
