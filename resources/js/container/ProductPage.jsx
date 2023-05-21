@@ -87,6 +87,7 @@ export default function ProductPage(props) {
     }
     return (
         <Container sx={{ px: 10, mt: 5 }}>
+            {/* start of laptop display */}
             <Grid
                 spacing={15}
                 container
@@ -109,7 +110,7 @@ export default function ProductPage(props) {
                     ) : (
                         <Box>
                             {!!Number(product.has_3d) ? (
-                                <div className="sketchfab-embed-wrapper" style={{height : '300px'}}>
+                                <div className="sketchfab-embed-wrapper" style={{ height: '300px' }}>
                                     <Suspense>
                                         <Canvas>
                                             <Model3d model={product.model_3d} />
@@ -261,6 +262,47 @@ export default function ProductPage(props) {
                     </Box>
                 </Grid>
             </Grid>
+            {/* end of laptop display */}
+
+            {/* start of mobile display */}
+            <Box
+                container
+                display={{ mobile: "flex", laptop: "none" }}
+            >
+                {loading == true ? (
+                    <Typography>
+                        Loading cuy
+                    </Typography>
+                ) : (
+                    <Box>
+                        {!!Number(product.has_3d) ? (
+                            <div className="sketchfab-embed-wrapper" style={{ height: '300px' }}>
+                                <Suspense>
+                                    <Canvas>
+                                        <Model3d model={product.model_3d} />
+                                    </Canvas>
+                                </Suspense>
+                            </div>
+                        ) : (
+                            <Carousel>
+                                {product.imageUrl.map((item, id) => (
+                                    <Box
+                                        key={id}
+                                        sx={{
+                                            height: "400px",
+                                            objectFit: "fill",
+                                            ml: "30%",
+                                        }}
+                                        component="img"
+                                        src={`../storage/${item.path}`}
+                                    />
+                                ))}
+                            </Carousel>
+                        )}
+                    </Box>
+                )}
+            </Box>
+            {/* end of mobile display */}
         </Container>
     );
 }

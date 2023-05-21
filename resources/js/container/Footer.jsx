@@ -6,7 +6,7 @@ import React from "react";
 
 function Footer() {
     return (
-        <Container sx={{ mt: 10, pr: 20, pl: 10, py: 5, bgcolor: "black" }}>
+        <Container sx={{ display: {mobile: 'none', laptop: 'block'},mt: 10, pr: 20, pl: 10, py: 5, bgcolor: "black" }}>
             <Stack direction={"row"} spacing={25}>
                 <Stack direction={"column"} spacing={3}>
                     <Box

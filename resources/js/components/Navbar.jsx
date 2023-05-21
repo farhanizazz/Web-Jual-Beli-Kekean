@@ -239,9 +239,8 @@ export default function Navbar(props) {
                     <IconButton
                         size="large"
                         edge="start"
-                        color="inherit"
                         aria-label="menu"
-                        sx={{ mr: 2 }}
+                        sx={{ mr: 2, color: theme.textColor}}
                         onClick={() => setDrawerState(true)}
                     >
                         <MenuIcon />
@@ -251,15 +250,17 @@ export default function Navbar(props) {
                         textAlign={"center"}
                         color={"black"}
                     >
-                        Kekean
+                        KEKEAN
                     </Typography>
-                    <Button color="inherit">
-                        <Typography
-                            fontSize={20}
-                            href="#"
-                            className="bx bx-cart"
-                        ></Typography>
-                    </Button>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        aria-label="menu"
+                        sx={{ color: theme.textColor}}
+                        onClick={() => setDrawerState(true)}
+                    >
+                        <MenuIcon />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
             <Container
