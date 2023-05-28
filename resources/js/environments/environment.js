@@ -9,9 +9,9 @@ export const environment = {
 
     // Production
     production      : false,
-    apiURL          : "https://kekean.pusproset.site/api",
-    url             : "https://kekean.pusproset.site/",
-    fileUrl         : "https://kekean.pusproset.site/storage",
-    generateUrl     : 'https://kekean.pusproset.site/',
-    imgUrl          : "https://kekean.pusproset.site/storage",
+    apiURL          : "https://kekean.pusproset.online/api",
+    url             : "https://kekean.pusproset.online/",
+    fileUrl         : "https://kekean.pusproset.online/storage",
+    generateUrl     : 'https://kekean.pusproset.online/',
+    imgUrl          : "https://kekean.pusproset.online/storage",
 };

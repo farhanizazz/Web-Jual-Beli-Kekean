@@ -9,18 +9,27 @@ import {
     Select,
     TextField,
     Skeleton,
+    RadioGroup,
+    FormControlLabel,
+    Radio,
+    InputAdornment,
+    IconButton,
 } from "@mui/material";
-import React, { Suspense } from "react";
+import React, { Suspense, useMemo } from "react";
 import ButtonBeli from "../components/ButtonBeli";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import ButtonKeranjang from "../components/ButtonKeranjang";
 import axios from "axios";
 import swal from "sweetalert";
-import Carousel from "react-material-ui-carousel";
 import { useQueryClient } from "@tanstack/react-query";
 import Model3d from "./Model3d";
 import { Canvas } from "@react-three/fiber";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import { fontWeight, width } from "@mui/system";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export default function ProductPage(props) {
     const queryClient = useQueryClient();
@@ -85,8 +94,21 @@ export default function ProductPage(props) {
             }
         });
     }
+    const availableSizes = []
+    const [availSizes, setAvailSizes] = React.useState([])
+    useMemo(() => {
+        if (!loading) {
+            for (let key in sizes) {
+                if (sizes[key] > 0) {
+                    availableSizes.push(key)
+                }
+            }
+            availableSizes.shift()
+            setAvailSizes(availableSizes)
+        }
+    }, [loading])
     return (
-        <Container sx={{ px: 10, mt: 5 }}>
+        <Container sx={{ px: { laptop: 10, mobile: 5 }, mt: 5 }}>
             {/* start of laptop display */}
             <Grid
                 spacing={15}
@@ -118,18 +140,27 @@ export default function ProductPage(props) {
                                     </Suspense>
                                 </div>
                             ) : (
-                                <Carousel>
+                                <Carousel showThumbs={false} showStatus={false} infiniteLoop>
                                     {product.imageUrl.map((item, id) => (
-                                        <Box
-                                            key={id}
-                                            sx={{
-                                                height: "400px",
-                                                objectFit: "fill",
-                                                ml: "30%",
-                                            }}
-                                            component="img"
-                                            src={`../storage/${item.path}`}
-                                        />
+                                        // <Box
+                                        //     key={id}
+                                        //     sx={{
+                                        //         height: "400px",
+                                        //         objectFit: "scale-down",
+                                        //         alignItems: 'center'
+                                        //     }}
+                                        //     component="img"
+                                        //     src={`../storage/${item.path}`}
+                                        // />
+                                        <div>
+                                            <img
+                                                src={`../storage/${item.path}`}
+                                                style={{
+                                                    objectFit: 'contain',
+                                                    height: '400px'
+                                                }}
+                                            />
+                                        </div>
                                     ))}
                                 </Carousel>
                                 // <Box
@@ -274,7 +305,7 @@ export default function ProductPage(props) {
                         Loading cuy
                     </Typography>
                 ) : (
-                    <Box>
+                    <Box sx={{ mt: 3 }}>
                         {!!Number(product.has_3d) ? (
                             <div className="sketchfab-embed-wrapper" style={{ height: '300px' }}>
                                 <Suspense>
@@ -284,25 +315,124 @@ export default function ProductPage(props) {
                                 </Suspense>
                             </div>
                         ) : (
-                            <Carousel>
+                            <Carousel showThumbs={false} showStatus={false} infiniteLoop>
                                 {product.imageUrl.map((item, id) => (
-                                    <Box
-                                        key={id}
-                                        sx={{
-                                            height: "400px",
-                                            objectFit: "fill",
-                                            ml: "30%",
-                                        }}
-                                        component="img"
-                                        src={`../storage/${item.path}`}
-                                    />
+                                    // <Box
+                                    //     key={id}
+                                    //     sx={{
+                                    //         height: "400px",
+                                    //         objectFit: "scale-down",
+                                    //         alignItems: 'center'
+                                    //     }}
+                                    //     component="img"
+                                    //     src={`../storage/${item.path}`}
+                                    // />
+                                    <div>
+                                        <img
+                                            src={`../storage/${item.path}`}
+                                            style={{
+                                                objectFit: 'contain',
+                                                height: '300px'
+                                            }}
+                                        />
+                                    </div>
                                 ))}
                             </Carousel>
                         )}
+                        <Typography fontSize={24} mt={2}>
+                            {product.product_name}
+                        </Typography>
+                        <Typography fontSize={12} fontWeight={'light'}>
+                            Rp. {Number(product.price).toLocaleString()}
+                        </Typography>
+                        <Box py={2} borderTop={'1px solid #CCCCCC'} borderBottom={'1px solid #CCCCCC'} mt={2}>
+                            <Typography fontSize={13}>
+                                Pilih Ukuran
+                            </Typography>
+                            <RadioGroup
+                                row
+                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                name="row-radio-buttons-group"
+                                onChange={handleChange}
+                            >
+                                {
+                                    availSizes.map((item, id) => {
+                                        console.log(item)
+                                        return (
+                                            <FormControlLabel value={String(item)} control={<Radio checkedIcon={<Typography fontWeight='light' color={'#464646'} sx={{
+                                                width: '28px',
+                                                height: '28px',
+                                                lineHeight: '27px',
+                                                borderRadius: '50%',
+                                                fontSize: '14px',
+                                                color: '#464646',
+                                                textAlign: 'center',
+                                                border: '1px solid #F97700',
+                                                fontWeight: 'light'
+                                            }}>{item}</Typography>} icon={<Typography fontWeight='light' color={'#464646'} sx={{
+                                                width: '28px',
+                                                height: '28px',
+                                                lineHeight: '27px',
+                                                borderRadius: '50%',
+                                                fontSize: '14px',
+                                                color: '#464646',
+                                                textAlign: 'center',
+                                                border: '1px solid #B0B0B0',
+                                                fontWeight: 'light'
+                                            }}>{item}</Typography>} />} />
+                                        )
+                                    })
+                                }
+                            </RadioGroup>
+
+                            <Typography mt={2} fontSize={13}>
+                                Quantity
+                            </Typography>
+                            <TextField
+                                onChange={(event) => {
+                                    if (event.target.value < 0) {
+                                        event.target.value = 0;
+                                        setQuantity(event.target.value);
+                                    } else {
+                                        event.target.value;
+                                        setQuantity(event.target.value);
+                                    }
+                                }}
+                                id="jumlah-barang"
+                                type="number"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><IconButton onClick={() => {
+                                        if (quantity <= 1) {
+                                            setQuantity(1)
+                                        } else {
+                                            setQuantity(quantity - 1)
+                                        }
+                                    }}><RemoveIcon fontSize='small' /></IconButton></InputAdornment>, endAdornment: <InputAdornment position="end"><IconButton onClick={() => setQuantity(quantity + 1)}><AddIcon fontSize='small' /></IconButton></InputAdornment>
+                                }}
+                                variant="outlined"
+                                sx={{
+                                    mt: 2,
+                                    width: 140,
+                                    '& legend': { display: 'none' },
+                                    '& fieldset': { top: 0 },
+                                }}
+                                size='small'
+                                value={quantity}
+
+                            />
+                            <ButtonKeranjang
+                                id={productId}
+                                onClick={submitToCart}
+                            />
+                        </Box>
                     </Box>
                 )}
             </Box>
             {/* end of mobile display */}
-        </Container>
+        </Container >
     );
 }
