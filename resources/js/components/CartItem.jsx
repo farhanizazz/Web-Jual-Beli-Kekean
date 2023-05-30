@@ -42,7 +42,7 @@ export default function CartItem({
                             ml: 2,
                         }}
                         component="img"
-                        src={`../catalog/${img}`}
+                        src={`../storage/${img}`}
                     />
                 </Grid>
                 <Grid item laptop={9}>
@@ -52,8 +52,8 @@ export default function CartItem({
                         justifyContent={"space-between"}
                     >
                         <Box>
-                            <Typography fontSize={20}>{name}</Typography>
-                            <Typography color={"#7D7D7D"}>
+                            <Typography fontSize={{ laptop: 20, mobile: 18 }}>{name}</Typography>
+                            <Typography color={"#7D7D7D"} fontSize={{ mobile: 12 }}>
                                 {`Rp. ${Number(price).toLocaleString()}`}
                             </Typography>
                         </Box>
@@ -63,26 +63,27 @@ export default function CartItem({
                             </IconButton>
                         </Box>
                     </Stack>
-                    <Stack alignItems={'center'} mt={{desktop: 2}} spacing={2} direction={'row'}>
-                        <Typography>Size: {value}</Typography>
-                        <Typography> Jumlah: </Typography>
+                    <Stack alignItems={'center'} mt={{ desktop: 2 }} spacing={2} direction={'row'}>
+                        <Typography fontSize={{ mobile: 12 }}>Size: {value}</Typography>
+                        <Typography fontSize={{ mobile: 12 }} display={{ mobile: 'none' }}> Jumlah: </Typography>
                         <TextField
-                                onChange={onQtyChange}
-                                size="small"
-                                id="jumlah-barang"
-                                type="number"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                InputProps={{ style: { fontSize: 15 } }}
-                                sx={{
-                                    "& legend": { display: "none" },
-                                    "& fieldset": { top: 0 },
-                                    width: 75,
-                                }}
-                                variant="outlined"
-                                value={qty}
-                            />
+                            onChange={onQtyChange}
+                            size="small"
+                            id="jumlah-barang"
+                            type="number"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            InputProps={{ style: { fontSize: 12 } }}
+                            sx={{
+                                "& legend": { display: "none" },
+                                "& fieldset": { top: 0 },
+                                width: 75,
+                                display: {mobile: 'none'}
+                            }}
+                            variant="outlined"
+                            value={qty}
+                        />
                     </Stack>
                 </Grid>
             </Grid>

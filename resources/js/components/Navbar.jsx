@@ -195,7 +195,7 @@ export default function Navbar(props) {
                 <Box sx={{ display: { mobile: "none", laptop: "block" } }}>
                     <Typography
                         sx={{
-                            "&:hover":  {
+                            "&:hover": {
                                 borderBottom: `1px solid ${theme.borderColor}`,
                             },
                         }}
@@ -240,7 +240,7 @@ export default function Navbar(props) {
                         size="large"
                         edge="start"
                         aria-label="menu"
-                        sx={{ mr: 2, color: theme.textColor}}
+                        sx={{ mr: 2, color: theme.textColor }}
                         onClick={() => setDrawerState(true)}
                     >
                         <MenuIcon />
@@ -256,10 +256,18 @@ export default function Navbar(props) {
                         size="large"
                         edge="start"
                         aria-label="menu"
-                        sx={{ color: theme.textColor}}
-                        onClick={() => setDrawerState(true)}
+                        sx={{ color: theme.textColor }}
+                        onClick={() => history("/cart")}
                     >
-                        <MenuIcon />
+                        <Badge
+                            badgeContent={isLoading ? 0 : cartLength}
+                            color="primary"
+                        >
+                            <ShoppingCartOutlinedIcon
+                                sx={{ color: theme.textColor }}
+                                fontSize="medium"
+                            />
+                        </Badge>
                     </IconButton>
                 </Toolbar>
             </AppBar>
@@ -286,14 +294,14 @@ export default function Navbar(props) {
                                     alignItems: "center",
                                 }}
                             >
-                                <Link to={'/'} style={{textDecoration: 'none'}}>
+                                <Link to={'/'} style={{ textDecoration: 'none' }}>
                                     <Typography
                                         color={"black"}
                                         fontSize={20}
                                         fontWeight={500}
                                         mr={4}
                                     >
-                                        Kekean <Box component='span' sx={{color: 'primary.main'}}> Gallery</Box>
+                                        Kekean <Box component='span' sx={{ color: 'primary.main' }}> Gallery</Box>
                                     </Typography>
                                 </Link>
                                 {/* <Button

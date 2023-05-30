@@ -81,21 +81,20 @@ export default function Cart() {
     });
 
     return (
-        <Grid paddingX={10} mt={5} container spacing={2}>
+        <Grid paddingX={{ laptop: 10, mobile: 2 }} mt={5} container spacing={2} direction={{ laptop: 'row', mobile: 'column' }}>
             <Grid item laptop={6}>
                 <Box
                     sx={{
-                        border: "1px solid #BABABA",
+                        border: {laptop: "1px solid #cfc9c4"},
                         borderRadius: 1,
                         pt: 1,
                         pb: 2,
                         px: 2,
                     }}
                 >
-                    <Typography mx={2} fontWeight="500" fontSize={24}>
+                    <Typography padding={0.5} mx={2} fontWeight={{laptop: '500', mobile: '600'}} sx={{ fontSize: { laptop: 24, mobile: 18 } }} borderBottom='1px #cfc9c4 solid'>
                         Keranjang Belanja
                     </Typography>
-                    <hr />
                     {isLoading ? (
                         <>
                             <CartItemLoading />

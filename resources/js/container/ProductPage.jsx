@@ -346,7 +346,7 @@ export default function ProductPage(props) {
                             Rp. {Number(product.price).toLocaleString()}
                         </Typography>
                         <Box py={2} borderTop={'1px solid #CCCCCC'} borderBottom={'1px solid #CCCCCC'} mt={2}>
-                            <Typography fontSize={13}>
+                            <Typography fontSize={14}>
                                 Pilih Ukuran
                             </Typography>
                             <RadioGroup
@@ -385,7 +385,7 @@ export default function ProductPage(props) {
                                 }
                             </RadioGroup>
 
-                            <Typography mt={2} fontSize={13}>
+                            <Typography mt={2} fontSize={14}>
                                 Quantity
                             </Typography>
                             <TextField
@@ -429,6 +429,12 @@ export default function ProductPage(props) {
                                 onClick={submitToCart}
                             />
                         </Box>
+                        <Typography mt={2} fontSize={14}>
+                            Deskripsi
+                        </Typography>
+                        <Typography fontWeight={'light'} fontSize={10} textAlign='justify' mt={0.5}>
+                            {product.description}
+                        </Typography>
                     </Box>
                 )}
             </Box>
