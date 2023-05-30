@@ -112,7 +112,7 @@ export default function Cart() {
                                     price={item.product.price}
                                     qty={Number(item.qty)}
                                     value={item.size}
-                                    img={item.product.image_detail1}
+                                    img={item.product.image[0].path}
                                     onQtyChange={(event) =>
                                         handleQtyChange(event, item.id)
                                     }
