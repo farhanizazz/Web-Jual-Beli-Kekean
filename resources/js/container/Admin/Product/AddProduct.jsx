@@ -34,7 +34,14 @@ export default function AddProduct() {
         has_3d: false,
         image: [],
         model_3d: "",
-        error_list: [],
+        error_list: {
+            product_name: "",
+            price: "",
+            description: "",
+            has_3d: false,
+            image: [],
+            model_3d: "",
+        },
     });
 
     const history = useNavigate();
@@ -96,9 +103,9 @@ export default function AddProduct() {
             //     selectedImage: event.target.result,
             // })
             setInput({
-            ...input,
-            model_3d: event.target.result,
-        });
+                ...input,
+                model_3d: event.target.result,
+            });
         };
     };
 
@@ -358,8 +365,8 @@ export default function AddProduct() {
                                             </Typography>
                                         }
                                     />
-                                    <div style={{display : input.has_3d ? 'inline' : 'none'}} className="form-group mb-3">
-                                        <label style={{ fontWeight:500,color:"#000000DE", fontSize : '1rem'}}>
+                                    <div style={{ display: input.has_3d ? 'inline' : 'none' }} className="form-group mb-3">
+                                        <label style={{ fontWeight: 500, color: "#000000DE", fontSize: '1rem' }}>
                                             Masukkan file 3D
                                         </label>
                                         <input
