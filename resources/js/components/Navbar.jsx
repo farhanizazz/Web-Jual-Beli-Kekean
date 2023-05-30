@@ -245,13 +245,13 @@ export default function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        sx={{ flexGrow: 1 }}
-                        textAlign={"center"}
-                        color={"black"}
-                    >
-                        KEKEAN
-                    </Typography>
+                    <Link to={'/'} style={{ textDecoration: 'none' , textAlign: 'center', flexGrow: 1}}>
+                        <Typography
+                            color={"black"}
+                        >
+                            KEKEAN
+                        </Typography>
+                    </Link>
                     <IconButton
                         size="large"
                         edge="start"

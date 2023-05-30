@@ -13,6 +13,8 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import CartItem from "../components/CartItem";
 import CartItemLoading from "../components/CartItemLoading";
+import SwipeToDelete from 'react-swipe-to-delete-component';
+import 'react-swipe-to-delete-component/dist/swipe-to-delete.css';
 
 export default function Cart() {
     const queryClient = useQueryClient();
@@ -85,14 +87,14 @@ export default function Cart() {
             <Grid item laptop={6}>
                 <Box
                     sx={{
-                        border: {laptop: "1px solid #cfc9c4"},
+                        border: { laptop: "1px solid #cfc9c4" },
                         borderRadius: 1,
                         pt: 1,
                         pb: 2,
                         px: 2,
                     }}
                 >
-                    <Typography padding={0.5} mx={2} fontWeight={{laptop: '500', mobile: '600'}} sx={{ fontSize: { laptop: 24, mobile: 18 } }} borderBottom='1px #cfc9c4 solid'>
+                    <Typography padding={0.5} mx={2} fontWeight={{ laptop: '500', mobile: '600' }} sx={{ fontSize: { laptop: 24, mobile: 18 } }} borderBottom='1px #cfc9c4 solid'>
                         Keranjang Belanja
                     </Typography>
                     {isLoading ? (
@@ -104,24 +106,30 @@ export default function Cart() {
                     ) : cart.length > 0 ? (
                         cart.map((item) => {
                             return (
-                                <CartItem
-                                    sx={{ mb: 2 }}
-                                    key={item.product_id}
-                                    name={item.product.product_name}
-                                    price={item.product.price}
-                                    qty={Number(item.qty)}
-                                    value={item.size}
-                                    img={item.product.image[0].path}
-                                    onQtyChange={(event) =>
-                                        handleQtyChange(event, item.id)
-                                    }
-                                    onDeleteClick={(e) =>
-                                        deleteMutation.mutate({
-                                            e: e,
-                                            cart_id: item.id,
-                                        })
-                                    }
-                                />
+                                <SwipeToDelete onDelete={(e) =>
+                                    deleteMutation.mutate({
+                                        e: e,
+                                        cart_id: item.id,
+                                    })}>
+                                    <CartItem
+                                        sx={{ pb: 2, backgroundColor: '#F6EFE8' }}
+                                        key={item.product_id}
+                                        name={item.product.product_name}
+                                        price={item.product.price}
+                                        qty={Number(item.qty)}
+                                        value={item.size}
+                                        img={item.product.image[0].path}
+                                        onQtyChange={(event) =>
+                                            handleQtyChange(event, item.id)
+                                        }
+                                        onDeleteClick={(e) =>
+                                            deleteMutation.mutate({
+                                                e: e,
+                                                cart_id: item.id,
+                                            })
+                                        }
+                                    />
+                                </SwipeToDelete>
                             );
                         })
                     ) : (

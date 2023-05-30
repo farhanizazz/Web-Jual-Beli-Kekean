@@ -29,12 +29,12 @@ export default function CartItem({
     };
 
     return (
-        <Box sx={sx} pt={2} id="CartItem">
+        <Box sx={sx} pt={2} id="CartItem" >
             <Grid container spacing={3}>
                 <Grid item laptop={3}>
                     <Box
                         sx={{
-                            width: { laptop: 90, desktop: 110 },
+                            width: { laptop: 90, desktop: 110, mobile: 80 },
                             height: { laptop: 90, desktop: 110 },
                             aspectRatio: 1 / 1,
                             objectFit: "cover",
@@ -47,7 +47,7 @@ export default function CartItem({
                 </Grid>
                 <Grid item laptop={9}>
                     <Stack
-                        maxWidth={310}
+                        maxWidth={510}
                         direction={"row"}
                         justifyContent={"space-between"}
                     >
@@ -57,7 +57,7 @@ export default function CartItem({
                                 {`Rp. ${Number(price).toLocaleString()}`}
                             </Typography>
                         </Box>
-                        <Box>
+                        <Box display={{mobile: 'none', laptop: 'block'}}>
                             <IconButton onClick={onDeleteClick} color="primary">
                                 <DeleteIcon />
                             </IconButton>
