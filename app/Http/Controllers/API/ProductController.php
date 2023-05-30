@@ -12,6 +12,7 @@ use App\Models\ImageDetail;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Image;
 
 class ProductController extends Controller
 {
@@ -52,7 +53,7 @@ class ProductController extends Controller
         $size->XL = $request->input('sizes.XL');
         $size->XXL = $request->input('sizes.XXL');
         $size->save();
-        
+
         $payload['image'] = $request->input('input.image');
         $payload['product_name'] = $request->input('input.product_name');
         $payload['product_name_english'] = $request->input('input.product_name_english');
@@ -96,7 +97,8 @@ class ProductController extends Controller
                     $image_type = $image_type_aux[1];
                     $image_base64 = base64_decode($image_parts[1]);
                     $file = $folderPath . uniqid() . "." . $image_type;
-                    Storage::disk('public')->put($file, $image_base64);
+                    Image::make($image_base64)->save(public_path('storage') . $file, 40);
+                    // Storage::disk('public')->put($file, $image_base64);
                     // $image[$i] = $file ;
 
                     ImageDetail::create([
