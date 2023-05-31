@@ -14,6 +14,9 @@ import {
     Avatar,
     Badge,
     useScrollTrigger,
+    Card,
+    CardActionArea,
+    Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
@@ -224,8 +227,36 @@ export default function Navbar(props) {
                 onClose={() => setDrawerState(false)}
                 onOpen={() => setDrawerState(true)}
             >
-                <Box p={2} width="250px" textAlign="center">
-                    <Typography>Side Panel</Typography>
+                <Box width="250px">
+                    <Card sx={{ backgroundColor: '#FF9C8B', borderRadius: 0, boxShadow: 'none' }}>
+                        <CardActionArea sx={{ display: 'flex', backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }}>
+                            <AccountCircleOutlinedIcon sx={{ fontSize: '3rem' }} />
+                            <Box ml={2}>
+                                <Typography fontWeight={'600'}>
+                                    My Account
+                                </Typography>
+                                <Typography fontSize={9} fontWeight={'400'}>
+                                    Sign in / Register
+                                </Typography>
+                            </Box>
+                        </CardActionArea>
+                    </Card>
+
+                    <CardActionArea sx={{ p: 2 }}>
+                        <Typography fontWeight={'light'}>
+                            CATALOG
+                        </Typography>
+                    </CardActionArea>
+                    <CardActionArea sx={{ p: 2 }}>
+                        <Typography fontWeight={'light'}>
+                            ARTICLE
+                        </Typography>
+                    </CardActionArea>
+                    <CardActionArea sx={{ p: 2 }}>
+                        <Typography fontWeight={'light'}>
+                            ABOUT US
+                        </Typography>
+                    </CardActionArea>
                 </Box>
             </SwipeableDrawer>
             <AppBar
@@ -245,7 +276,7 @@ export default function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to={'/'} style={{ textDecoration: 'none' , textAlign: 'center', flexGrow: 1}}>
+                    <Link to={'/'} style={{ textDecoration: 'none', textAlign: 'center', flexGrow: 1 }}>
                         <Typography
                             color={"black"}
                         >

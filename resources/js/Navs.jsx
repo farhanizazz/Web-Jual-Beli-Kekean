@@ -80,7 +80,7 @@ function Navs() {
             values: {
                 mobile: 0,
                 tablet: 640,
-                laptop: 1024,
+                laptop: 1023,
                 desktop: 1200,
             },
         },

@@ -147,32 +147,31 @@ export default function Cart() {
                 </Box>
             </Grid>
             <Grid item laptop={6}>
-                <Box sx={{ border: "1px solid #BABABA", borderRadius: 1 }}>
-                    <Box px={2} pt={1}>
-                        <Typography mx={2} fontWeight="500" fontSize={24}>
+                <Box display={'flex'} flexDirection={'column'} sx={{ border: { laptop: "1px solid #BABABA" }, borderRadius: {laptop: 1}}} px={2} pt={1}>
+                    <Box pt={1} mx={2} display={{ mobile: 'flex', laptop: 'block' }} justifyContent={'space-between'} alignContent='center' borderTop={{mobile: '1px solid #BABABA', laptop: 'none' }}>
+                        <Typography borderBottom={{laptop: '1px solid #BABABA' }} mx={{mobile: 2}} fontWeight={{ laptop: "500", mobile: '600' }} fontSize={{ laptop: 24, mobile: 15 }} mt={{mobile: 1, laptop: 0}}>
                             Total belanjaan
                         </Typography>
-                        <hr />
-                        <Typography mx={2} fontWeight="500" fontSize={36}>
+                        <Typography mx={2} fontWeight="500" fontSize={{ laptop: 36, mobile: 15 }} mt={{mobile: 1, laptop: 0}}>
                             {isLoading ? (
                                 <Skeleton variant="text" />
                             ) : (
                                 `RP. ${totalPrice.toLocaleString()}`
                             )}
                         </Typography>
-
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            disableElevation
-                            sx={{ py: 1.5, px: 3, ml: 2, mt: 5, mb: 2 }}
-                            onClick={() => history("/payment")}
-                        >
-                            <Typography color={"white"}>
-                                Lanjutkan ke pembayaran
-                            </Typography>
-                        </Button>
                     </Box>
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disableElevation
+                        sx={{ py: 1.5, px: 3, ml: 2, mt: {laptop: 5, mobile: 1}, mb: 2 }}
+                        onClick={() => history("/payment")}
+                    >
+                        <Typography color={"white"}>
+                            Lanjutkan ke pembayaran
+                        </Typography>
+                    </Button>
                 </Box>
             </Grid>
         </Grid>

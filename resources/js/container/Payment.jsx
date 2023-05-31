@@ -53,7 +53,7 @@ export default function Payment() {
                     setCart(res.data.cart);
                     setUser(res.data.user);
                     setLoading(false);
-                    if(res.data.cart.length == 0) {
+                    if (res.data.cart.length == 0) {
                         swal("Warning", 'Keranjang belanja anda kosong', "warning");
                         history('/')
                     }
@@ -141,7 +141,7 @@ export default function Payment() {
         "December",
     ];
 
-    today ="Surabaya, " + dd + " " + monthNames[mm] + " " + yyyy;
+    today = "Surabaya, " + dd + " " + monthNames[mm] + " " + yyyy;
 
     const Invoice = () => (
         <Document>
@@ -305,133 +305,126 @@ export default function Payment() {
     );
 
     return (
-        <Container sx={{ px: 50 }}>
-            <Accordion
-                sx={{
-                    AccordionStyle,
-                    border: "1px solid #BABABA",
-                    borderBottom: "none",
-                }}
-                disableGutters={true}
-                defaultExpanded={true}
-            >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography
-                        fontSize={{ laptop: 15, desktop: 17 }}
-                        fontWeight={"regular"}
-                    >
-                        Rekening Bank
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Grid container alignItems="center" spacing={5}>
-                        {rekening.map((item, key) => <PaymentItem key={key} img={item.nama_bank} rekening={item.nomor_rekening}/>)}
-                    </Grid>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion
-                sx={{
-                    AccordionStyle,
-                    border: "1px solid #BABABA",
-                    borderBottom: "none",
-                    borderTop: "none",
-                }}
-                disableGutters={true}
-            >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography
-                        fontSize={{ laptop: 15, desktop: 17 }}
-                        fontWeight={"regular"}
-                    >
-                        E-Wallet
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Grid container alignItems="center" spacing={5}>
-                    {ewallet.map((item, key) => <PaymentItem key={key} img={item.nama_bank} rekening={item.nomor_rekening}/>)}
-                    </Grid>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion
-                sx={{
-                    AccordionStyle,
-                    border: "1px solid #BABABA",
-                    borderTop: "none",
-                }}
-                disableGutters={true}
-            >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography
-                        fontSize={{ laptop: 15, desktop: 17 }}
-                        fontWeight={"regular"}
-                    >
-                        Qris
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Grid
-                        container
-                        justifyContent={"center"}
-                        alignItems="center"
-                        spacing={5}
-                    >
-                        <Grid item mobile={6}>
-                            <Box
-                                sx={{ width: "250px" }}
-                                component="img"
-                                src="../images/qris.jpeg"
-                            />
+        <Container sx={{mt: {mobile: 10, laptop: 0}}}>
+            <Box mx={{ mobile: 0, tablet: 20, laptop: 40 }}>
+                <Accordion
+                    sx={{
+                        AccordionStyle,
+                        border: "1px solid #BABABA",
+                        borderBottom: "none",
+                    }}
+                    disableGutters={true}
+                    defaultExpanded={true}
+                >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography
+                            fontSize={{ laptop: 15, desktop: 17 }}
+                            fontWeight={"regular"}
+                        >
+                            Rekening Bank
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Grid container alignItems="center" spacing={5}>
+                            {rekening.map((item, key) => <PaymentItem key={key} img={item.nama_bank} rekening={item.nomor_rekening} />)}
                         </Grid>
-                    </Grid>
-                </AccordionDetails>
-            </Accordion>
-            <Stack direction={"row"} spacing={2}>
-                <Box>
-                    <PDFDownloadLink
-                        document={<Invoice />}
-                        fileName="Invoice Pembelian.pdf"
-                        style={{ textDecoration: "none", width: 0, height: 0 }}
-                    >
+                    </AccordionDetails>
+                </Accordion>
+                <Accordion
+                    sx={{
+                        AccordionStyle,
+                        border: "1px solid #BABABA",
+                        borderBottom: "none",
+                        borderTop: "none",
+                    }}
+                    disableGutters={true}
+                >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography
+                            fontSize={{ laptop: 15, desktop: 17 }}
+                            fontWeight={"regular"}
+                        >
+                            E-Wallet
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Grid container alignItems="center" spacing={5}>
+                            {ewallet.map((item, key) => <PaymentItem key={key} img={item.nama_bank} rekening={item.nomor_rekening} />)}
+                        </Grid>
+                    </AccordionDetails>
+                </Accordion>
+                <Accordion
+                    sx={{
+                        AccordionStyle,
+                        border: "1px solid #BABABA",
+                        borderTop: "none",
+                    }}
+                    disableGutters={true}
+                >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography
+                            fontSize={{ laptop: 15, desktop: 17 }}
+                            fontWeight={"regular"}
+                        >
+                            Qris
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Box
+                            sx={{ width: "250px" }}
+                            component="img"
+                            src="../images/qris.jpeg"
+                        />
+                    </AccordionDetails>
+                </Accordion>
+                <Stack direction={"row"} spacing={2}>
+                    <Box>
+                        <PDFDownloadLink
+                            document={<Invoice />}
+                            fileName="Invoice Pembelian.pdf"
+                            style={{ textDecoration: "none", width: 0, height: 0 }}
+                        >
+                            <Button
+                                disabled={loading}
+                                variant="contained"
+                                sx={{
+                                    mt: 2,
+                                    borderRadius: 1,
+                                    backgroundColor: "#009E93",
+                                    ":hover": {
+                                        backgroundColor: "#00637A",
+                                    },
+                                }}
+                            >
+                                <Typography mr={1} color="white">
+                                    Download Invoice
+                                </Typography>
+                                <ReceiptIcon
+                                    sx={{ color: "#FFFFFF", fontSize: 25 }}
+                                />
+                            </Button>
+                        </PDFDownloadLink>
+                    </Box>
+                    <Box>
                         <Button
-                            disabled={loading}
                             variant="contained"
                             sx={{
                                 mt: 2,
                                 borderRadius: 1,
-                                backgroundColor: "#009E93",
+                                backgroundColor: "#25D366",
                                 ":hover": {
-                                    backgroundColor: "#00637A",
+                                    backgroundColor: "#1AA04C",
                                 },
                             }}
                         >
                             <Typography mr={1} color="white">
-                                Download Invoice
+                                Konfirmasi Pembayaran
                             </Typography>
-                            <ReceiptIcon
-                                sx={{ color: "#FFFFFF", fontSize: 25 }}
-                            />
+                            <WhatsAppIcon sx={{ color: "#FFFFFF", fontSize: 25 }} />
                         </Button>
-                    </PDFDownloadLink>
-                </Box>
-                <Box>
-                    <Button
-                        variant="contained"
-                        sx={{
-                            mt: 2,
-                            borderRadius: 1,
-                            backgroundColor: "#25D366",
-                            ":hover": {
-                                backgroundColor: "#1AA04C",
-                            },
-                        }}
-                    >
-                        <Typography mr={1} color="white">
-                            Konfirmasi Pembayaran
-                        </Typography>
-                        <WhatsAppIcon sx={{ color: "#FFFFFF", fontSize: 25 }} />
-                    </Button>
-                </Box>
-            </Stack>
+                    </Box>
+                </Stack>
+            </Box>
         </Container>
     );
 }

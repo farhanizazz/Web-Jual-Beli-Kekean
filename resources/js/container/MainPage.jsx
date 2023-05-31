@@ -71,8 +71,6 @@ export default function MainPage(props) {
                 pt={0}
             >
                 <CatalogCollection />
-                <CatalogCollection />
-                <CatalogCollection />
                 <ArticleCollection />
                 <Grid item mobile={12}>
                     <Container>

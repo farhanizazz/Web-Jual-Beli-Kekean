@@ -1,11 +1,45 @@
 import React from 'react'
 import { Grid, Typography } from "@mui/material";
 import ArticleItem from "../../components/ArticleItem";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import moment from 'moment';
+import striptags from 'striptags';
 
 
 export default function ArticleCollection() {
-    return(
+    const [article, setArticle] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    let isMounted = true;
+
+
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            axios.get(`api/article`).then((res) => {
+                if (res.data.status === 200) {
+                    setArticle(res.data.data);
+                    setLoading(false);
+                }
+            });
+        };
+        fetchData();
+        isMounted = false;
+    }, []);
+
+    const articles = article.slice(0, 3).map((item, id) =>
+        <ArticleItem
+            key={id}
+            id={item.id}
+            image={item.image}
+            tanggal={moment(
+                item.date,
+                "YYYY-MM-DD HH:mm:ss"
+            ).format("DD MMMM YYYY")}
+            nama={item.title}
+            deskripsi={striptags(item.isi)}
+        />
+    )
+    return (
         <Grid item>
             <Grid container alignItems="center" justifyContent="center">
                 <Grid item mobile={6}>
@@ -39,24 +73,7 @@ export default function ArticleCollection() {
                             display: { mobile: "flex", laptop: "none" },
                         }}
                     >
-                        <ArticleItem
-                            item={1}
-                            tanggal="20 Juli 2020"
-                            nama="Ngga tau"
-                            deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                        />
-                        <ArticleItem
-                            item={1}
-                            tanggal="20 Juli 2020"
-                            nama="Ngga tau"
-                            deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                        />
-                        <ArticleItem
-                            item={1}
-                            tanggal="20 Juli 2020"
-                            nama="Ngga tau"
-                            deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                        />
+                        {articles}
                     </Grid>
                 </Grid>
             </Grid>
