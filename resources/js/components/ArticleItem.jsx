@@ -14,7 +14,7 @@ export default function ArticleItem(props) {
             <Box
                 sx={{
                     width: "100%",
-                    height: { mobile: "auto", laptop: '10em' },
+                    height: { mobile: 60, laptop: '10em' },
                     objectFit: "cover",
                 }}
                 component="img"
