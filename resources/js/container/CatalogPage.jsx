@@ -1,9 +1,55 @@
 import React from "react";
-import { Typography, Grid, Container, Button, Icon } from "@mui/material/";
+import { Typography, Grid, Container, Button, Icon, Box, Pagination } from "@mui/material/";
 import CatalogItem from "../components/CatalogItem";
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 export default function CatalogPage() {
+    const [loading, setLoading] = React.useState(true);
+    const [product, setProduct] = React.useState([]);
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [postsPerPage, setPostsPerPage] = React.useState(12);
+    let isMounted = true;
+    
+    React.useEffect(() => {
+        const fetchData = async () => {
+            axios.get(`api/products`).then((res) => {
+                if (res.data.status === 200) {
+                    setProduct(res.data.products);
+                    setLoading(false);
+                }
+            });
+        };
+        fetchData();
+        isMounted = false;
+    }, []);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentProducts = product.slice(indexOfFirstPost, indexOfLastPost);
+
+    const changeCurrentPage = (event, value) => {
+        window.scrollTo(0, 0);
+        setCurrentPage(value);
+    };
+
+    if (!loading) {
+        var showProductList = "";
+        showProductList = currentProducts.map((item, id) => (
+            <CatalogItem
+                key={id}
+                id={item.id}
+                description={item.description}
+                nama={item.product_name}
+                image={item.imageUrl[0].path}
+                harga={item.price}
+                have3d={item.has_3d}
+                model={item.model_3d}
+                catalogPage={true}
+            />
+        ));
+        console.log(product);
+    }
+
     return(
         <Container>
             <Grid pt={7} container alignItems="center" justifyContent="center">
@@ -22,7 +68,7 @@ export default function CatalogPage() {
                             <Button variant='outlined'>
                                     <FilterListIcon sx={{fontSize: 7}}/>
                                 <Typography  sx={{fontSize: 7}}>
-                                    ajdfnsdjf
+                                    Filter
                                 </Typography>
                             </Button>
                         </Grid>
@@ -39,54 +85,21 @@ export default function CatalogPage() {
                                     display: { mobile: "flex", laptop: "none" },
                                 }}
                             >
-                                <CatalogItem
-                                    nama="Batik Duwo"
-                                    item="1"
-                                    harga={599000}
-                                    catalogPage={true}
-                                />
-                                <CatalogItem
-                                    nama="Batik Duwo"
-                                    item="1"
-                                    harga={599000}
-                                    catalogPage={true}
-                                />
-                                <CatalogItem
-                                    nama="Batik Duwo"
-                                    item="1"
-                                    harga={599000}
-                                    catalogPage={true}
-                                />
-                                <CatalogItem
-                                    nama="Batik Duwo"
-                                    item="1"
-                                    harga={599000}
-                                    catalogPage={true}
-                                />
-                                <CatalogItem
-                                    nama="Batik Duwo"
-                                    item="1"
-                                    harga={599000}
-                                    catalogPage={true}
-                                />
-                                <CatalogItem
-                                    nama="Batik Duwo"
-                                    item="1"
-                                    harga={599000}
-                                    catalogPage={true}
-                                />
-                                <CatalogItem
-                                    nama="Batik Duwo"
-                                    item="1"
-                                    harga={599000}
-                                    catalogPage={true}
-                                />
-                                <CatalogItem
-                                    nama="Batik Duwo"
-                                    item="1"
-                                    harga={599000}
-                                    catalogPage={true}
-                                />
+                               {showProductList}
+                            </Grid>
+                            <Grid item mobile={12}>
+                                <Box
+                                    display="flex"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                >
+                                    <Pagination
+                                        sx={{ width: "fit-content" }}
+                                        page={currentPage}
+                                        onChange={changeCurrentPage}
+                                        count={Math.ceil(product.length / postsPerPage)}
+                                    />
+                                </Box>
                             </Grid>
                         </Grid>
                         <Grid item>
