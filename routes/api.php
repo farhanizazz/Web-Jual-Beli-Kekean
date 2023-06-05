@@ -7,7 +7,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\Api\TextureController;
+use App\Http\Controllers\API\TextureController;
 
 /*
 |--------------------------------------------------------------------------
