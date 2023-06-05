@@ -9,7 +9,7 @@ function ArticleCarousel(props) {
                 <Box
                     sx={{ borderRadius: 1, width: "100%", height: '100%', objectFit: 'cover'}}
                     component="img"
-                    src={`../storage/articles/article-${props.img}.png`}
+                    src={`../storage/${props.img}`}
                 />
             </Grid>
             <Grid item laptop={8}>

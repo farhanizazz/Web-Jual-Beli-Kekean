@@ -3,12 +3,12 @@ import React from "react";
 
 function AboutUs() {
     return (
-        <Container sx={{ px: 15 }}>
+        <Container sx={{ px: {laptop: 15, mobile: 8}, mt: {mobile: 8, laptop: 0} }}>
             <Typography
                 sx={{ mt: 3, mb: 3 }}
                 color={"primary.main"}
                 fontWeight="600"
-                fontSize={32}
+                fontSize={{laptop: 32, mobile: 28}}
             >
                 Tentang Kekean
                 <br />
@@ -21,7 +21,7 @@ function AboutUs() {
                 component="img"
                 src={`../images/aboutUs.png`}
             />
-            <Typography sx={{mt: 3}} fontSize={20} align={'justify'}>
+            <Typography sx={{mt: 3}} fontSize={{laptop: 20, mobile: 12}} align={'justify'}>
                 Kekean Wastra Gallery is a business that carries local
                 Indonesian cultural values. This business was established in
                 Bali on December 2, 2014. Kekean Wastra Gallery focuses on

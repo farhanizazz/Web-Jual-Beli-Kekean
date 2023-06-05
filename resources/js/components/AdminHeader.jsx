@@ -89,6 +89,22 @@ function AdminHeader(props) {
                                 Edit Artikel
                             </Button>
                         </Link>
+                        <Link
+                            to={"/admin/texture"}
+                            style={{
+                                textDecoration: "none",
+                                color: "black",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                startIcon={<NewspaperIcon />}
+                                sx={{ py: 2, borderRadius: 0 }}
+                                fullWidth
+                            >
+                                Edit Texture
+                            </Button>
+                        </Link>
                     </Box>
                 </SwipeableDrawer>
                 <Typography fontWeight={"medium"}>Daftar {props.daftar}</Typography>

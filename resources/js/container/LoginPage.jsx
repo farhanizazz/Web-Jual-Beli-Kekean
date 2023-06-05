@@ -74,23 +74,24 @@ function LoginPage() {
             justifyContent="center"
             alignItems="center"
             minHeight="85vh"
+            mt={{mobile: 3, laptop: 0}}
         >
             <form onSubmit={loginSubmit}>
                 <Box
                     textAlign={"center"}
-                    sx={{ border: "1px solid #CACACA", borderRadius: "16px" }}
-                    p={5}
+                    sx={{ border: {laptop: "1px solid #CACACA"}, borderRadius: "16px" }}
+                    p={{laptop: 5, mobile: 2}}
                 >
-                    <Typography fontSize={"32px"}>
+                    <Typography fontSize={{ laptop: "32px", mobile: 25 }}>
                         Masuk untuk belanja
                         <Box
                             component={"span"}
-                            sx={{ color: "#FF674D", fontSize: "40px" }}
+                            sx={{ color: "#862C22", fontSize: { laptop: "40px", mobile: 32 } }}
                         >
                             .
                         </Box>
                     </Typography>
-                    <Typography color="#939393" fontSize={"16px"}>
+                    <Typography color="#939393" fontSize={{ laptop: "16px", mobile: 12 }}>
                         Belum punya akun?
                         <Box
                             component={"span"}
@@ -100,7 +101,7 @@ function LoginPage() {
                                 onClick={() => history("/register")}
                                 variant="text"
                             >
-                                <Typography fontSize="14px">Daftar Sekarang</Typography>
+                                <Typography fontSize={{ laptop: "14px", mobile: 10 }}>Daftar Sekarang</Typography>
                             </Button>
                         </Box>
                     </Typography>

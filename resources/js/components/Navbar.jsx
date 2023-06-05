@@ -229,7 +229,7 @@ export default function Navbar(props) {
             >
                 <Box width="250px">
                     <Card sx={{ backgroundColor: '#FF9C8B', borderRadius: 0, boxShadow: 'none' }}>
-                        <CardActionArea sx={{ display: 'flex', backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }}>
+                        <CardActionArea sx={{ display: 'flex', backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }} onClick={() => history("/register")}>
                             <AccountCircleOutlinedIcon sx={{ fontSize: '3rem' }} />
                             <Box ml={2}>
                                 <Typography fontWeight={'600'}>
@@ -242,17 +242,17 @@ export default function Navbar(props) {
                         </CardActionArea>
                     </Card>
 
-                    <CardActionArea sx={{ p: 2 }}>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/catalog")}>
                         <Typography fontWeight={'light'}>
                             CATALOG
                         </Typography>
                     </CardActionArea>
-                    <CardActionArea sx={{ p: 2 }}>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/artikel")}>
                         <Typography fontWeight={'light'}>
                             ARTICLE
                         </Typography>
                     </CardActionArea>
-                    <CardActionArea sx={{ p: 2 }}>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/about")}>
                         <Typography fontWeight={'light'}>
                             ABOUT US
                         </Typography>

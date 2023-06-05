@@ -6,6 +6,8 @@ import "../../css/ProductCustomize.css";
 import { useCustomization } from "./ProductCustomize/Customization";
 
 export default function Customize(props) {
+    const [texture, setTexture] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
     const { materialDKa, setMaterialDKa } = useCustomization()
     const { materialKe, setMaterialKe } = useCustomization()
     const { materialDKi, setMaterialDKi } = useCustomization()
@@ -13,6 +15,22 @@ export default function Customize(props) {
     const [seleksi, setSeleksi] = React.useState('dadaKanan')
     console.log('material', materialDKa)
     console.log('seleksi', seleksi)
+
+    let isMounted = true;
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            axios.get(`api/texture`).then((res) => {
+                if (res.data.status === 200) {
+                    setTexture(res.data.data);
+                    setLoading(false);
+                }
+            });
+        };
+        fetchData();
+        isMounted = false;
+    }, []);
+
 
     return (
         <Container sx={{ px: 10, mt: 5 }}>
@@ -29,16 +47,16 @@ export default function Customize(props) {
                                 <div className="row justify-content-center text-center m-auto" style={{ position: 'absolute', width: '60%', bottom: 0, left: 0, right: 0, fontWeight: 500, fontSize: 12 }}>
                                     {/* <div className="row m-auto" style={{width : '100%'}}> */}
                                     <div onClick={() => setSeleksi('kerah')} className="col" style={{ cursor: 'pointer' }}>
-                                        <p style={{opacity: seleksi == 'kerah' ? 1 : 0.8}}>Kerah</p>
+                                        <p style={{ opacity: seleksi == 'kerah' ? 1 : 0.8 }}>Kerah</p>
                                     </div>
                                     <div onClick={() => setSeleksi('dadaKanan')} className="col" style={{ cursor: 'pointer' }}>
-                                        <p style={{opacity: seleksi == 'dadaKanan' ? 1 : 0.8}} className="text-truncate">Dada Kanan</p>
+                                        <p style={{ opacity: seleksi == 'dadaKanan' ? 1 : 0.8 }} className="text-truncate">Dada Kanan</p>
                                     </div>
                                     <div onClick={() => setSeleksi('dadaKiri')} className="col" style={{ cursor: 'pointer' }}>
-                                        <p style={{opacity: seleksi == 'dadaKiri' ? 1 : 0.8}} className="text-truncate">Dada Kiri</p>
+                                        <p style={{ opacity: seleksi == 'dadaKiri' ? 1 : 0.8 }} className="text-truncate">Dada Kiri</p>
                                     </div>
                                     <div onClick={() => setSeleksi('kancing')} className="col" style={{ cursor: 'pointer' }}>
-                                        <p style={{opacity: seleksi == 'kancing' ? 1 : 0.8}}>Kancing</p>
+                                        <p style={{ opacity: seleksi == 'kancing' ? 1 : 0.8 }}>Kancing</p>
                                     </div>
                                     {/* </div> */}
                                 </div>
@@ -83,32 +101,32 @@ export default function Customize(props) {
                                 <hr className="mx-3 mt-0" style={{ border: '2px solid #EBE4E4' }} />
                             </div>
                             <div className="row mx-3">
-                                <div className="col-6">
+                                {texture.map((item, id) => (<div className="col-6">
                                     <div onClick={() => {
                                         switch (seleksi) {
                                             case 'dadaKanan':
-                                                setMaterialDKa('kawung')
+                                                setMaterialDKa(`${item.image}`)
                                                 break;
                                             case 'dadaKiri':
-                                                setMaterialDKi('kawung')
+                                                setMaterialDKi(`${item.image}`)
                                                 break;
                                             case 'kerah':
-                                                setMaterialKe('kawung')
+                                                setMaterialKe(`${item.image}`)
                                                 break;
                                             case 'kancing':
-                                                setMaterialKa('kawung')
+                                                setMaterialKa(`${item.image}`)
                                                 break;
                                             default:
                                                 break;
                                         }
                                     }} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                         <div style={{ paddingTop: '100%', position: 'relative' }}>
-                                            <img src="../images/motif-batik-dummy/kawung.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
+                                            <img src={`../storage/${item.image}`} className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
                                         </div>
-                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>Kawung</p>
+                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>{item.nama}</p>
                                     </div>
-                                </div>
-                                <div className="col-6">
+                                </div>))}
+                                {/* <div className="col-6">
                                     <div onClick={() => {
                                         switch (seleksi) {
                                             case 'dadaKanan':
@@ -181,8 +199,8 @@ export default function Customize(props) {
                                             <img src="../images/motif-batik-dummy/sagon.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
                                         </div>
                                         <p className="text-center mt-1" style={{ fontSize: 12 }}>Sagon</p>
-                                    </div>
-                                </div>
+                                    </div> 
+                            </div>*/}
                             </div>
                         </div>
                         <div className="w-100">

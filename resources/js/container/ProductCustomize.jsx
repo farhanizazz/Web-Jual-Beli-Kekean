@@ -1,8 +1,29 @@
 import { Card, Container, Grid } from "@mui/material";
+import axios from "axios";
 import React from "react";
 import "../../css/ProductCustomize.css";
 
 const ProductCustomize = () => {
+    const [texture, setTexture] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    let isMounted = true;
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            axios.get(`api/products`).then((res) => {
+                if (res.data.status === 200) {
+                    console.log(res.data)
+                    // setTexture(res.data);
+                    setLoading(false);
+                }
+            });
+        };
+        fetchData();
+        isMounted = false;
+    }, []);
+
+
+
     return (
         <Container sx={{ px: 10, mt: 5 }}>
             <div className="card rounded border " style={{border:'1px solid rgba(0, 0, 0, 0.32)',borderRadius:20}}>
@@ -56,6 +77,12 @@ const ProductCustomize = () => {
                                         <p className="text-center mt-1" style={{fontSize: 12}}>Kawung</p>
                                     </div>
                                 </div>
+                                {/* <div className="col-6">
+                                    <div className="motif mx-auto text-center" style={{width:'auto',height:148,cursor:'pointer'}}>
+                                        <img src="../images/motif-batik-dummy/kawung.webp" className="py-1 px-1" style={{borderRadius : '50%',objectFit:'cover',width:106,height:106}}></img>
+                                        <p className="text-center mt-1" style={{fontSize: 12}}>Kawung</p>
+                                    </div>
+                                </div>
                                 <div className="col-6">
                                     <div className="motif mx-auto text-center" style={{width:'auto',height:148,cursor:'pointer'}}>
                                         <img src="../images/motif-batik-dummy/parang.webp" className="py-1 px-1" style={{borderRadius : '50%',objectFit:'cover',width:106,height:106}}></img>
@@ -73,7 +100,7 @@ const ProductCustomize = () => {
                                         <img src="../images/motif-batik-dummy/sagon.webp" className="py-1 px-1" style={{borderRadius : '50%',objectFit:'cover',width:106,height:106}}></img>
                                         <p className="text-center mt-1" style={{fontSize: 12}}>Sagon</p>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="w-100">

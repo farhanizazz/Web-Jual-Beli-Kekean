@@ -43,6 +43,8 @@ import SplashScreen from "./container/SplashScreen";
 import Customize from "./container/Customize";
 import {environment} from "./environments/environment.js"
 import { CustomizationProvider } from "./container/ProductCustomize/Customization";
+import AddTexture from "./container/Admin/Texture/AddTexture";
+import AdminTexture from "./container/Admin/Texture/AdminTexture";
 
 export const LoadingContext = React.createContext();
 
@@ -267,6 +269,24 @@ function Navs() {
                                                 element={
                                                     <AdminPrivateRoute
                                                         comp={EditArtikel}
+                                                    />
+                                                }
+                                            />
+                                            <Route
+                                                path="/admin/addTexture"
+                                                name="Admin"
+                                                element={
+                                                    <AdminPrivateRoute
+                                                        comp={AddTexture}
+                                                    />
+                                                }
+                                            />
+                                            <Route
+                                                path="/admin/Texture"
+                                                name="Admin"
+                                                element={
+                                                    <AdminPrivateRoute
+                                                        comp={AdminTexture}
                                                     />
                                                 }
                                             />
