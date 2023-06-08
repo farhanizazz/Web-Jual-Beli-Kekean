@@ -30,8 +30,11 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 export default function Navbar(props) {
+    let path = (window.location.pathname).split("/")[1] == '' ? 'en' : ((window.location.pathname).split("/")[1] == 'id' ? 'id' : 'en');
+    const { t, i18n } = useTranslation();
     const theme = {
         textColor: "black",
         borderColor: "black",
@@ -101,7 +104,7 @@ export default function Navbar(props) {
                             <Typography href="#" className="bx bx-heart" />
                         </Button> */}
                         <IconButton
-                            onClick={() => history("/cart")}
+                            onClick={() => history("/"+ path +"/cart")}
                             color="inherit"
                             sx={{ color: theme.textColor, mr: 1 }}
                         >
@@ -174,20 +177,20 @@ export default function Navbar(props) {
                             }}
                         >
                             <MenuItem>
-                                <Avatar /> My account
+                                <Avatar /> {t("navbar.myAccount")}
                             </MenuItem>
                             <Divider />
                             <MenuItem>
                                 <ListItemIcon>
                                     <Settings fontSize="small" />
                                 </ListItemIcon>
-                                Settings
+                                {t("navbar.settings")}
                             </MenuItem>
                             <MenuItem onClick={logoutSubmit}>
                                 <ListItemIcon>
                                     <Logout fontSize="small" />
                                 </ListItemIcon>
-                                Logout
+                                {t("navbar.logout")}
                             </MenuItem>
                         </Menu>
                     </Box>
@@ -212,7 +215,7 @@ export default function Navbar(props) {
                             }}
                             to={`/login`}
                         >
-                            Login
+                            {t("navbar.login")}
                         </Link>
                     </Typography>
                 </Box>
@@ -229,7 +232,7 @@ export default function Navbar(props) {
             >
                 <Box width="250px">
                     <Card sx={{ backgroundColor: '#FF9C8B', borderRadius: 0, boxShadow: 'none' }}>
-                        <CardActionArea sx={{ display: 'flex', backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }} onClick={() => history("/register")}>
+                        <CardActionArea sx={{ display: 'flex', backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }} onClick={() => history("/" + path +"/register")}>
                             <AccountCircleOutlinedIcon sx={{ fontSize: '3rem' }} />
                             <Box ml={2}>
                                 <Typography fontWeight={'600'}>
@@ -242,17 +245,17 @@ export default function Navbar(props) {
                         </CardActionArea>
                     </Card>
 
-                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/catalog")}>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/"+ path +"/catalog")}>
                         <Typography fontWeight={'light'}>
                             CATALOG
                         </Typography>
                     </CardActionArea>
-                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/artikel")}>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/"+path+"/artikel")}>
                         <Typography fontWeight={'light'}>
                             ARTICLE
                         </Typography>
                     </CardActionArea>
-                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/about")}>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/"+path+"/about")}>
                         <Typography fontWeight={'light'}>
                             ABOUT US
                         </Typography>
@@ -276,7 +279,7 @@ export default function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to={'/'} style={{ textDecoration: 'none', textAlign: 'center', flexGrow: 1 }}>
+                    <Link to={`/id`} style={{ textDecoration: 'none', textAlign: 'center', flexGrow: 1 }}>
                         <Typography
                             color={"black"}
                         >
@@ -288,7 +291,7 @@ export default function Navbar(props) {
                         edge="start"
                         aria-label="menu"
                         sx={{ color: theme.textColor }}
-                        onClick={() => history("/cart")}
+                        onClick={() => history("/"+path+"/cart")}
                     >
                         <Badge
                             badgeContent={isLoading ? 0 : cartLength}
@@ -352,7 +355,7 @@ export default function Navbar(props) {
                                     </Typography>
                                 </Button> */}
                                 <Link
-                                    to={'/artikel'}
+                                    to={'/' +path + '/artikel'}
                                     style={{ color: theme.textColor, textDecoration: 'none' }}
                                 >
                                     <Typography
@@ -364,11 +367,11 @@ export default function Navbar(props) {
                                         color={theme.textColor}
                                         px={1}
                                     >
-                                        Article
-                                    </Typography>
+                                        {t("navbar.article")}
+                                    </Typography>   
                                 </Link>
                                 <Link
-                                    to={'/about'}
+                                    to={'/' + path + '/about'}
                                     style={{ color: theme.textColor, textDecoration: 'none' }}
                                 >
                                     <Typography
@@ -380,10 +383,10 @@ export default function Navbar(props) {
                                         color={theme.textColor}
                                         px={2}
                                     >
-                                        About Us
+                                        {t("navbar.aboutUs")}
                                     </Typography>
                                 </Link>
-                                <Link to={'/customize'}
+                                <Link to={'/' + path + '/customize'}
                                     style={{ color: theme.textColor, textDecoration: 'none' }}
                                 >
                                     <Typography
@@ -395,7 +398,7 @@ export default function Navbar(props) {
                                         color={theme.textColor}
                                         px={2}
                                     >
-                                        Buat produkmu sendiri
+                                        {t("navbar.customize")}
                                     </Typography>
                                 </Link>
                                 {/* <Typography

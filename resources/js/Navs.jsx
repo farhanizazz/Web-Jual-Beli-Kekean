@@ -5,6 +5,7 @@ import {
     Routes,
     Route,
     useLocation,
+    Navigate
 } from "react-router-dom";
 import Main from "./container/Main";
 import CatalogPage from "./container/CatalogPage";
@@ -45,10 +46,15 @@ import {environment} from "./environments/environment.js"
 import { CustomizationProvider } from "./container/ProductCustomize/Customization";
 import AddTexture from "./container/Admin/Texture/AddTexture";
 import AdminTexture from "./container/Admin/Texture/AdminTexture";
+import { I18nextProvider, useTranslation } from 'react-i18next';
+import i18n from './i18n';
+
 
 export const LoadingContext = React.createContext();
 
 function Navs() {
+    let path = (window.location.pathname).split("/")[1] == '' ? 'en' : ((window.location.pathname).split("/")[1] == 'id' ? 'id' : 'en');
+
     const theme = createTheme({
         palette: {
             primary: {
@@ -112,6 +118,7 @@ function Navs() {
 
     // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     return (
+
         <React.StrictMode>
             <CustomizationProvider>
                 <QueryClientProvider client={queryClient}>
@@ -126,73 +133,75 @@ function Navs() {
                                     <SplashScreen />
                                 ) : (
                                     <>
+                                        <I18nextProvider i18n={i18n}>
                                         <Navbar />
                                         <ScrollToTop />
                                         <Routes>
                                             <Route
-                                                path="/"
+                                                path="/:locale"
                                                 exact
                                                 element={<Main />}
                                             />
+                                        <Route path='/' element={<Navigate to={path? `/${path}` : '/en'}  />} />
                                             <Route
-                                                path="/catalog"
+                                                path="/:locale/catalog"
                                                 element={<CatalogPage />}
                                             />
                                             <Route
-                                                path="/products/:productId"
+                                                path="/:locale/products/:productId"
                                                 element={<ProductPage />}
                                             />
                                             <Route
-                                                path="/products/"
+                                                path="/:locale/products/"
                                                 element={<CatalogPage />}
                                             />
                                             <Route
-                                                path="/payment"
+                                                path="/:locale/payment"
                                                 element={<Payment />}
                                             />
                                             <Route
-                                                path="/login"
+                                                path="/:locale/login"
                                                 element={<LoginPage />}
                                             />
                                             <Route
-                                                path="/register"
+                                                path="/:locale/register"
                                                 element={<RegisterPage />}
                                             />
                                             <Route
-                                                path="/cart"
+                                                path="/:locale/cart"
                                                 element={<Cart />}
                                             />
                                             <Route
-                                                path="/artikel"
+                                                path="/:locale/artikel"
                                                 element={<ArticlePage />}
                                             />
                                             <Route
-                                                path="/artikel/:id"
+                                                path="/:locale/artikel/:id"
                                                 element={<ArticleDetailPage />}
                                             />
                                             <Route
-                                                path="/about"
+                                                path="/:locale/about"
                                                 element={<AboutUs />}
                                             />
                                             <Route
-                                                path="/cara-pengembalian"
+                                                path="/:locale/cara-pengembalian"
                                                 element={<CaraPengembalian />}
                                             />
                                             <Route
-                                                path="/bantuan"
+                                                path="/:locale/bantuan"
                                                 element={<Bantuan />}
                                             />
                                             <Route
-                                                path="/konfirmasi-transfer"
+                                                path="/:locale/konfirmasi-transfer"
                                                 element={<KonfirmasiTransfer />}
                                             />
                                             <Route
-                                                path="/customize"
+                                                path="/:locale/customize"
                                                 element={<Customize />}
                                             />
                                             {/* Admin Routes */}
                                             <Route
-                                                path="/admin"
+                                                path="/:locale/admin"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -201,7 +210,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/addProduct"
+                                                path="/:locale/admin/addProduct"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -210,7 +219,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/editProduct/:id"
+                                                path="/:locale/admin/editProduct/:id"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -219,7 +228,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/payment"
+                                                path="/:locale/admin/payment"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -228,7 +237,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/addPayment"
+                                                path="/:locale/admin/addPayment"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -237,7 +246,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/editPayment/:id"
+                                                path="/:locale/admin/editPayment/:id"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -246,7 +255,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/artikel"
+                                                path="/:locale/admin/artikel"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -255,7 +264,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/addArtikel"
+                                                path="/:locale/admin/addArtikel"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -264,7 +273,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/editArtikel/:id"
+                                                path="/:locale/admin/editArtikel/:id"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -273,7 +282,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/addTexture"
+                                                path="/:locale/admin/addTexture"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -282,7 +291,7 @@ function Navs() {
                                                 }
                                             />
                                             <Route
-                                                path="/admin/Texture"
+                                                path="/:locale/admin/Texture"
                                                 name="Admin"
                                                 element={
                                                     <AdminPrivateRoute
@@ -292,6 +301,7 @@ function Navs() {
                                             />
                                         </Routes>
                                         <Footer />
+                                        </I18nextProvider>
                                     </>
                                 )}
                             </LoadingContext.Provider>

@@ -5,8 +5,11 @@ import Container from '@mui/material/Container'
 import { CssBaseline, Grid } from '@mui/material';
 import MainPage from './MainPage'
 import Carousel from 'react-material-ui-carousel/dist/components/Carousel';
+import {useParams} from 'react-router-dom';
 
-function Main() {
+function Main(props) {
+    const {locale} = useParams();
+
     return (
         <div>
             <Container sx={{px: {mobile: 5, laptop: 10}}}>
