@@ -37,7 +37,6 @@ import i18next from "i18next";
 export default function Navbar(props) {
 
     const { t } = useTranslation()
-
     const theme = {
         textColor: "black",
         borderColor: "black",
@@ -185,20 +184,20 @@ export default function Navbar(props) {
                             }}
                         >
                             <MenuItem>
-                                <Avatar /> My account
+                                <Avatar /> {t("navbar.myAccount")}
                             </MenuItem>
                             <Divider />
                             <MenuItem>
                                 <ListItemIcon>
                                     <Settings fontSize="small" />
                                 </ListItemIcon>
-                                Settings
+                                {t("navbar.settings")}
                             </MenuItem>
                             <MenuItem onClick={logoutSubmit}>
                                 <ListItemIcon>
                                     <Logout fontSize="small" />
                                 </ListItemIcon>
-                                Logout
+                                {t("navbar.logout")}
                             </MenuItem>
                         </Menu>
                         <IconButton
@@ -285,7 +284,7 @@ export default function Navbar(props) {
                             }}
                             to={`/login`}
                         >
-                            Login
+                            {t("navbar.login")}
                         </Link>
                     </Typography>
                 </Box>
@@ -349,7 +348,7 @@ export default function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to={'/'} style={{ textDecoration: 'none', textAlign: 'center', flexGrow: 1 }}>
+                    <Link to={`/id`} style={{ textDecoration: 'none', textAlign: 'center', flexGrow: 1 }}>
                         <Typography
                             color={"black"}
                         >

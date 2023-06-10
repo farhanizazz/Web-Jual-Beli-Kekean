@@ -5,6 +5,7 @@ import {
     Routes,
     Route,
     useLocation,
+    Navigate
 } from "react-router-dom";
 import Main from "./container/Main";
 import CatalogPage from "./container/CatalogPage";
@@ -66,6 +67,8 @@ i18next
     })
 
 function Navs() {
+    let path = (window.location.pathname).split("/")[1] == '' ? 'en' : ((window.location.pathname).split("/")[1] == 'id' ? 'id' : 'en');
+
     const theme = createTheme({
         palette: {
             primary: {
@@ -129,6 +132,7 @@ function Navs() {
 
     // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     return (
+
         <React.StrictMode>
             <Suspense fallback='Loading...'>
                 <CustomizationProvider>

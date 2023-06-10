@@ -47,6 +47,7 @@
     "gsap": "^3.11.4",
     "html-react-parser": "^3.0.4",
     "i18next": "^22.5.1",
+    "i18next-browser-languagedetector": "^7.0.2",
     "image-to-base64": "^2.2.0",
     "material-ui-flags": "^1.2.4",
     "moment": "^2.29.4",

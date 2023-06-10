@@ -1,0 +1,13 @@
+{
+  "id": {
+    "navbar" : {
+      "myAccount": "Akun Saya",
+      "settings": "Pengaturan",
+      "logout": "Keluar",
+      "login": "Masuk",
+      "article": "Artikel",
+      "aboutUs" : "Tentang Kami",
+      "customize" : "Buat produkmu sendiri"
+    }
+  }
+}

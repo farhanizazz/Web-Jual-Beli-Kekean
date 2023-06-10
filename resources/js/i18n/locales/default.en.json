@@ -1,0 +1,13 @@
+{
+  "en": {
+    "navbar" : {
+      "myAccount": "My Account",
+      "settings": "Settings",
+      "logout": "Logout",
+      "login": "Login",
+      "article": "Articles",
+      "aboutUs": "About Us",
+      "customize": "Customize your product"
+    }
+  }
+}
