@@ -30,8 +30,14 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { Language } from "@mui/icons-material";
+import i18next from "i18next";
 
 export default function Navbar(props) {
+
+    const { t } = useTranslation()
+
     const theme = {
         textColor: "black",
         borderColor: "black",
@@ -86,10 +92,15 @@ export default function Navbar(props) {
     });
     function IsLogin() {
         const [anchorEl, setAnchorEl] = React.useState(null);
+        const [anchorElLang, setAnchorElLang] = React.useState(null);
         const open = Boolean(anchorEl);
+        const openLang = Boolean(anchorElLang);
 
         const openMenu = (e) => setAnchorEl(e.currentTarget);
         const closeMenu = () => setAnchorEl(null);
+
+        const openMenuLang = (e) => setAnchorElLang(e.currentTarget);
+        const closeMenuLang = () => setAnchorElLang(null);
         if (localStorage.getItem("auth_token")) {
             return (
                 <>
@@ -188,6 +199,68 @@ export default function Navbar(props) {
                                     <Logout fontSize="small" />
                                 </ListItemIcon>
                                 Logout
+                            </MenuItem>
+                        </Menu>
+                        <IconButton
+                            onClick={openMenuLang}
+                            color="inherit"
+                            sx={{ color: theme.textColor }}
+                            aria-controls={open ? "account-menu" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? "true" : undefined}
+                        >
+                            <Language
+                                sx={{ color: theme.textColor }}
+                                fontSize="medium"
+                            />
+                        </IconButton>
+                        <Menu
+                            anchorEl={anchorElLang}
+                            id="account-menu-lang"
+                            open={openLang}
+                            onClose={closeMenuLang}
+                            onClick={closeMenuLang}
+                            PaperProps={{
+                                elevation: 0,
+                                sx: {
+                                    overflow: "visible",
+                                    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                                    mt: 1.5,
+                                    "& .MuiAvatar-root": {
+                                        width: 32,
+                                        height: 32,
+                                        ml: -0.5,
+                                        mr: 1,
+                                    },
+                                    "&:before": {
+                                        content: '""',
+                                        display: "block",
+                                        position: "absolute",
+                                        top: 0,
+                                        right: 14,
+                                        width: 10,
+                                        height: 10,
+                                        bgcolor: "background.paper",
+                                        transform:
+                                            "translateY(-50%) rotate(45deg)",
+                                        zIndex: 0,
+                                    },
+                                },
+                            }}
+                            transformOrigin={{
+                                horizontal: "right",
+                                vertical: "top",
+                            }}
+                            anchorOrigin={{
+                                horizontal: "right",
+                                vertical: "bottom",
+                            }}
+                        >
+                            <MenuItem onClick={() => i18next.changeLanguage('id')}>
+                                Indonesia
+                            </MenuItem>
+                            <MenuItem onClick={() => i18next.changeLanguage('en')}>
+                                English
                             </MenuItem>
                         </Menu>
                     </Box>
@@ -364,7 +437,7 @@ export default function Navbar(props) {
                                         color={theme.textColor}
                                         px={1}
                                     >
-                                        Article
+                                        {t('navArticle')}
                                     </Typography>
                                 </Link>
                                 <Link
@@ -380,7 +453,7 @@ export default function Navbar(props) {
                                         color={theme.textColor}
                                         px={2}
                                     >
-                                        About Us
+                                        {t('navAbout')}
                                     </Typography>
                                 </Link>
                                 <Link to={'/customize'}
@@ -395,7 +468,7 @@ export default function Navbar(props) {
                                         color={theme.textColor}
                                         px={2}
                                     >
-                                        Buat produkmu sendiri
+                                        {t('navCustomize')}
                                     </Typography>
                                 </Link>
                                 {/* <Typography

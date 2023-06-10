@@ -6,8 +6,10 @@ import Typography from "@mui/material/Typography";
 import Carousel from "react-material-ui-carousel";
 import HeroModel from "./HeroModel";
 import { Canvas } from "@react-three/fiber";
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
+    const { t } = useTranslation()
     return (
         <>
             <Container sx={{ display: { mobile: "none", laptop: "flex" }, mt: 5, justifyContent: 'space-around', backgroundImage: 'linear-gradient(to right, #0000 , #FFC58B)', p: 2, borderRadius: 1, px: 10 }}>
@@ -37,7 +39,7 @@ export default function Hero() {
                         Batik Tenun
                     </Typography>
                     <Typography fontSize={24} fontWeight={'600'} color={'#AC9D8D'}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        {t('hero')}
                     </Typography>
                 </Box>
                 <Box sx={{ px: 2 }}>

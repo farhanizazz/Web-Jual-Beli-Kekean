@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useTranslation } from "react-i18next";
 
 export default function Filter() {
     const checkboxColor = {
@@ -31,6 +32,8 @@ export default function Filter() {
             display: "none",
         },
     };
+
+    const { t } = useTranslation()
 
     return (
         <Box>
@@ -63,7 +66,7 @@ export default function Filter() {
                     }}
                     expandIcon={<ExpandMoreIcon />}
                 >
-                    <Typography fontSize={{laptop: 15, desktop: 17}} className="fw-bolder">Tipe Motif</Typography>
+                    <Typography fontSize={{laptop: 15, desktop: 17}} className="fw-bolder">{t('sideMotif')}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FormGroup>
@@ -106,7 +109,7 @@ export default function Filter() {
                     }}
                     expandIcon={<ExpandMoreIcon />}
                 >
-                    <Typography fontSize={{laptop: 15, desktop: 17}} className="fw-bolder">Ukuran</Typography>
+                    <Typography fontSize={{laptop: 15, desktop: 17}} className="fw-bolder">{t('sideUkuran')}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FormGroup>
