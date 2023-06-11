@@ -61,7 +61,7 @@ class TextureController extends Controller
 
         try {
             if (!empty($payload["image"])) {
-                $folderPath = "/texture/";
+                $folderPath = "/public/texture/";
 
                 $image_parts = explode(";base64,", $payload["image"]);
                 $image_type_aux = explode("image/", $image_parts[0]);
