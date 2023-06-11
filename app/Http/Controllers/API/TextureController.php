@@ -61,14 +61,14 @@ class TextureController extends Controller
 
         try {
             if (!empty($payload["image"])) {
-                $folderPath = "/public/texture/";
+                $folderPath = "/texture/";
 
                 $image_parts = explode(";base64,", $payload["image"]);
                 $image_type_aux = explode("image/", $image_parts[0]);
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
                 $file = $folderPath . uniqid() . "." . $image_type;
-                Storage::disk('local')->put($file, $image_base64);
+                Storage::disk('public')->put($file, $image_base64);
                 $payload["image"] = $file;
                 // $payload["gambar"] = $file;
                 // $payload["path_gambar"] = $folderPath;
