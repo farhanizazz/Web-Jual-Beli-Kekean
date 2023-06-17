@@ -12,6 +12,9 @@ import {
     Typography,
     Button,
     FormHelperText,
+    RadioGroup,
+    Radio,
+    FormLabel,
 } from "@mui/material";
 import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
@@ -29,6 +32,7 @@ export default function AddProduct() {
     });
     const [input, setInput] = React.useState({
         product_name: "",
+        category: "",
         price: "",
         description: "",
         has_3d: false,
@@ -158,7 +162,6 @@ export default function AddProduct() {
         handleCloseImage();
     };
 
-    console.log(input);
     const saveProduct = async (e) => {
         e.preventDefault();
 
@@ -268,6 +271,46 @@ export default function AddProduct() {
                                     >
                                         {input.error_list.description}
                                     </FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item mobile={12}>
+                                <FormControl>
+                                    <FormLabel>Kategori</FormLabel>
+                                    <RadioGroup row={true}>
+                                        <FormControlLabel
+                                            control={
+                                                <Radio
+                                                    sx={checkboxColor}
+                                                    onChange={handleInput}
+                                                    value={'manis'}
+                                                    name="category"
+                                                />
+                                            }
+                                            label="Manis"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Radio
+                                                    sx={checkboxColor}
+                                                    onChange={handleInput}
+                                                    value={'chakra'}
+                                                    name="category"
+                                                />
+                                            }
+                                            label="Chakra"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Radio
+                                                    sx={checkboxColor}
+                                                    onChange={handleInput}
+                                                    value={'bhirawa'}
+                                                    name="category"
+                                                />
+                                            }
+                                            label="Bhirawa"
+                                        />
+                                    </RadioGroup>
                                 </FormControl>
                             </Grid>
                             <Grid item mobile={12}>

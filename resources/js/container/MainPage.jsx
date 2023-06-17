@@ -13,10 +13,13 @@ import { Link } from "react-router-dom";
 import CatalogCollection from "./CatalogCollection";
 import ArticleCollection from "./Artikel/ArticleCollection";
 import { LoadingContext } from "../Navs";
+import { useCustomization } from "./ProductCustomize/Customization";
 
 export default function MainPage(props) {
     // const product = JSON.parse(JSON.stringify(require('../product.json')))
-
+    
+    
+    const { filter, setFilter } = useCustomization()
     const [loading, setLoading] = React.useState(true);
     const [product, setProduct] = React.useState([]);
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -32,13 +35,19 @@ export default function MainPage(props) {
                 }
             });
         };
-        fetchData();
+        fetchData().then(() => {
+            console.log(product)
+        });
         isMounted = false;
     }, []);
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentProducts = product.slice(indexOfFirstPost, indexOfLastPost);
+    const currentProducts = product.filter((e) => {
+        if(filter == 'semua') return e
+        return e.category == filter
+    }).slice(indexOfFirstPost, indexOfLastPost);
+    
 
     const changeCurrentPage = (event, value) => {
         window.scrollTo(0, 0);

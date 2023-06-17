@@ -9,12 +9,17 @@ import {
     Accordion,
     AccordionSummary,
     AccordionDetails,
+    RadioGroup,
+    Radio,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTranslation } from "react-i18next";
+import { useCustomization } from "../container/ProductCustomize/Customization";
 
 export default function Filter() {
+    const { filter, setFilter } = useCustomization()
+    
     const checkboxColor = {
         color: "primary.main",
         "&.Mui-checked": {
@@ -32,6 +37,10 @@ export default function Filter() {
             display: "none",
         },
     };
+
+    const handleChange = (event) => {
+        setFilter(event.target.name)
+    }
 
     const { t } = useTranslation()
 
@@ -69,20 +78,24 @@ export default function Filter() {
                     <Typography fontSize={{laptop: 15, desktop: 17}} className="fw-bolder">{t('sideMotif')}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <FormGroup>
+                    <RadioGroup defaultValue={'semua'}>
                         <FormControlLabel
-                            control={<Checkbox sx={checkboxColor} />}
+                            control={<Radio sx={checkboxColor} onChange={handleChange} name='semua' value='semua'/>}
+                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Semua</Typography>}
+                        />
+                        <FormControlLabel
+                            control={<Radio sx={checkboxColor} onChange={handleChange} name='manis' value='manis'/>}
                             label={<Typography fontSize={{laptop: 12, desktop: 17}}>Manis</Typography>}
                         />
                         <FormControlLabel
-                            control={<Checkbox sx={checkboxColor} />}
+                            control={<Radio sx={checkboxColor} onChange={handleChange} name='chakra' value='chakra'/>}
                             label={<Typography fontSize={{laptop: 12, desktop: 17}}>Chakra</Typography>}
                         />
                         <FormControlLabel
-                            control={<Checkbox sx={checkboxColor} />}
+                            control={<Radio sx={checkboxColor} onChange={handleChange} name='bhirawa' value='bhirawa'/>}
                             label={<Typography fontSize={{laptop: 12, desktop: 17}}>Bhirawa</Typography>}
                         />
-                        <FormControlLabel
+                        {/* <FormControlLabel
                             control={<Checkbox sx={checkboxColor} />}
                             label={<Typography fontSize={{laptop: 12, desktop: 17}}>Mindhi</Typography>}
                         />
@@ -93,8 +106,8 @@ export default function Filter() {
                         <FormControlLabel
                             control={<Checkbox sx={checkboxColor} />}
                             label={<Typography fontSize={{laptop: 12, desktop: 17}}>Chentil</Typography>}
-                        />
-                    </FormGroup>
+                        /> */}
+                    </RadioGroup>
                 </AccordionDetails>
             </Accordion>
             <hr></hr>

@@ -32,6 +32,7 @@ class ProductController extends Controller
 
         $validator = Validator::make($request->input('input'), [
             'product_name' => 'required',
+            'category' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',
             'image' => 'required',
@@ -56,6 +57,7 @@ class ProductController extends Controller
 
         $payload['image'] = $request->input('input.image');
         $payload['product_name'] = $request->input('input.product_name');
+        $payload['category'] = $request->input('input.category');
         $payload['product_name_english'] = $request->input('input.product_name_english');
         $payload['price'] = $request->input('input.price');
         // $payload['model_3d'] = $request->input('input.model_3d');

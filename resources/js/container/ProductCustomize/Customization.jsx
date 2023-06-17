@@ -7,6 +7,7 @@ export const CustomizationProvider = (props) => {
     const [materialKe, setMaterialKe] = useState('/texture/default/kawung.png')
     const [materialDKi, setMaterialDKi] = useState('/texture/default/kawung.png')
     const [materialKa, setMaterialKa] = useState('/texture/default/kawung.png')
+    const [filter, setFilter] = useState('semua')
     return (
         <CustomizationContext.Provider value={{
             materialDKa,
@@ -17,6 +18,8 @@ export const CustomizationProvider = (props) => {
             setMaterialDKi,
             materialKa,
             setMaterialKa,
+            filter,
+            setFilter
         }}>
             {props.children}
         </CustomizationContext.Provider>
