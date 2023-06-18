@@ -30,6 +30,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { fontWeight, width } from "@mui/system";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { environment } from "../environments/environment";
 
 export default function ProductPage(props) {
     const queryClient = useQueryClient();
@@ -133,11 +134,14 @@ export default function ProductPage(props) {
                         <Box>
                             {!!Number(product.has_3d) ? (
                                 <div className="sketchfab-embed-wrapper" style={{ height: '300px' }}>
-                                    <Suspense>
+                                    {/* <Suspense>
                                         <Canvas>
                                             <Model3d model={product.model_3d} />
                                         </Canvas>
-                                    </Suspense>
+                                    </Suspense> */}
+                                    <model-viewer style={{ height: '300px' }} src={environment.fileUrl + product.model_3d} shadow-intensity="1" disable-zoom="" camera-controls="" auto-rotate="" ar-status="not-presenting" disable-pan>
+                                    </model-viewer>
+
                                 </div>
                             ) : (
                                 <Carousel showThumbs={false} showStatus={false} infiniteLoop>
@@ -308,11 +312,13 @@ export default function ProductPage(props) {
                     <Box sx={{ mt: 3 }}>
                         {!!Number(product.has_3d) ? (
                             <div className="sketchfab-embed-wrapper" style={{ height: '300px' }}>
-                                <Suspense>
+                                {/* <Suspense>
                                     <Canvas>
                                         <Model3d model={product.model_3d} />
                                     </Canvas>
-                                </Suspense>
+                                </Suspense> */}
+                                <model-viewer style={{ height: '300px' }} src={environment.fileUrl + product.model_3d} shadow-intensity="1" disable-zoom="" camera-controls="" auto-rotate="" ar-status="not-presenting" disable-pan>
+                                </model-viewer>
                             </div>
                         ) : (
                             <Carousel showThumbs={false} showStatus={false} infiniteLoop>
