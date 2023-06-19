@@ -369,6 +369,17 @@ export default function EditProduct(props) {
                                             </Typography>
                                         }
                                     />
+                                    <div style={{ display: input.has_3d ? 'inline' : 'none' }} className="form-group mb-3">
+                                        <label style={{ fontWeight: 500, color: "#000000DE", fontSize: '1rem' }}>
+                                            Masukkan file 3D
+                                        </label>
+                                        <input
+                                            type="file"
+                                            className="form-control"
+                                            name="model_3d"
+                                            onChange={onFileChange}
+                                        />
+                                    </div>
                                 </FormGroup>
                             </Grid>
 
@@ -419,26 +430,7 @@ export default function EditProduct(props) {
                                 />
                             </Grid> */}
 
-                            <Grid item mobile={12}>
-                                <FormControl fullWidth variant="filled">
-                                    <InputLabel htmlFor="component-filled">
-                                        Link model 3d dari sketchfab
-                                    </InputLabel>
-                                    <FilledInput
-                                        value={input.model_3d}
-                                        onChange={handleInput}
-                                        name="model_3d"
-                                        id="component-filled"
-                                        disableUnderline={true}
-                                        disabled={input.has_3d ? false : true}
-                                        classes={{
-                                            root: classes.root,
-                                            input: classes.input,
-                                        }}
-                                    />
-                                </FormControl>
-                            </Grid>
-
+                        
                             <Grid sx={{ mt: 5 }} item mobile={12}>
                                 <Button onClick={() => history("/admin")}>
                                     <Typography color={"main"}>
