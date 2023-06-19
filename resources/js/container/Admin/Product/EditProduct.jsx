@@ -12,6 +12,9 @@ import {
     Typography,
     Button,
     FormHelperText,
+    Radio,
+    RadioGroup,
+    FormLabel,
 } from "@mui/material";
 import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
@@ -23,6 +26,7 @@ export default function EditProduct(props) {
     const [loading, setLoading] = React.useState(true);
     const [input, setInput] = React.useState({
         product_name: "",
+        category: '',
         price: "",
         description: "",
         has_3d: false,
@@ -106,6 +110,22 @@ export default function EditProduct(props) {
             ...sizes,
             [e.target.name]: e.target.checked,
         });
+    };
+
+    const onFileChange = (e) => {
+        let files = e.target.files;
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(files[0]);
+
+        fileReader.onload = (event) => {
+            // this.setState({
+            //     selectedImage: event.target.result,
+            // })
+            setInput({
+                ...input,
+                model_3d: event.target.result,
+            });
+        };
     };
 
     const editProduct = async (e) => {
@@ -218,7 +238,43 @@ export default function EditProduct(props) {
                                     </FormHelperText>
                                 </FormControl>
                             </Grid>
-
+                            <Grid item mobile={12}>
+                                <FormControl>
+                                    <FormLabel>Kategori</FormLabel>
+                                    <RadioGroup row={true} value={input.category} onChange={handleInput}>
+                                        <FormControlLabel
+                                            control={
+                                                <Radio
+                                                    sx={checkboxColor}
+                                                />
+                                            }
+                                            name="category"
+                                            value={'manis'}
+                                            label="Manis"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Radio
+                                                    sx={checkboxColor}
+                                                />
+                                            }
+                                            value={'chakra'}
+                                            name="category"
+                                            label="Chakra"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Radio
+                                                    sx={checkboxColor}
+                                                />
+                                            }
+                                            value={'bhirawa'}
+                                            name="category"
+                                            label="Bhirawa"
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
                             <Grid item mobile={12}>
                                 <FormGroup row={true}>
                                     <FormControlLabel
