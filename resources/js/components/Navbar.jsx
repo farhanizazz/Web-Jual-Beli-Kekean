@@ -35,8 +35,7 @@ import { Language } from "@mui/icons-material";
 import i18next from "i18next";
 
 export default function Navbar(props) {
-
-    const { t } = useTranslation()
+    const { t } = useTranslation();
     const theme = {
         textColor: "black",
         borderColor: "black",
@@ -255,10 +254,14 @@ export default function Navbar(props) {
                                 vertical: "bottom",
                             }}
                         >
-                            <MenuItem onClick={() => i18next.changeLanguage('id')}>
+                            <MenuItem
+                                onClick={() => i18next.changeLanguage("id")}
+                            >
                                 Indonesia
                             </MenuItem>
-                            <MenuItem onClick={() => i18next.changeLanguage('en')}>
+                            <MenuItem
+                                onClick={() => i18next.changeLanguage("en")}
+                            >
                                 English
                             </MenuItem>
                         </Menu>
@@ -284,7 +287,7 @@ export default function Navbar(props) {
                             }}
                             to={`/login`}
                         >
-                            {t("navbar.login")}
+                            {t("navLogin")}
                         </Link>
                     </Typography>
                 </Box>
@@ -300,34 +303,53 @@ export default function Navbar(props) {
                 onOpen={() => setDrawerState(true)}
             >
                 <Box width="250px">
-                    <Card sx={{ backgroundColor: '#FF9C8B', borderRadius: 0, boxShadow: 'none' }}>
-                        <CardActionArea sx={{ display: 'flex', backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }} onClick={() => history("/register")}>
-                            <AccountCircleOutlinedIcon sx={{ fontSize: '3rem' }} />
+                    <Card
+                        sx={{
+                            backgroundColor: "#FF9C8B",
+                            borderRadius: 0,
+                            boxShadow: "none",
+                        }}
+                    >
+                        <CardActionArea
+                            sx={{
+                                display: "flex",
+                                backgroundColor: "#FF9C8B",
+                                alignItems: "center",
+                                p: 1.5,
+                            }}
+                            onClick={() => history("/register")}
+                        >
+                            <AccountCircleOutlinedIcon
+                                sx={{ fontSize: "3rem" }}
+                            />
                             <Box ml={2}>
-                                <Typography fontWeight={'600'}>
+                                <Typography fontWeight={"600"}>
                                     My Account
                                 </Typography>
-                                <Typography fontSize={9} fontWeight={'400'}>
+                                <Typography fontSize={9} fontWeight={"400"}>
                                     Sign in / Register
                                 </Typography>
                             </Box>
                         </CardActionArea>
                     </Card>
 
-                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/catalog")}>
-                        <Typography fontWeight={'light'}>
-                            CATALOG
-                        </Typography>
+                    <CardActionArea
+                        sx={{ p: 2 }}
+                        onClick={() => history("/catalog")}
+                    >
+                        <Typography fontWeight={"light"}>CATALOG</Typography>
                     </CardActionArea>
-                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/artikel")}>
-                        <Typography fontWeight={'light'}>
-                            ARTICLE
-                        </Typography>
+                    <CardActionArea
+                        sx={{ p: 2 }}
+                        onClick={() => history("/artikel")}
+                    >
+                        <Typography fontWeight={"light"}>ARTICLE</Typography>
                     </CardActionArea>
-                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/about")}>
-                        <Typography fontWeight={'light'}>
-                            ABOUT US
-                        </Typography>
+                    <CardActionArea
+                        sx={{ p: 2 }}
+                        onClick={() => history("/about")}
+                    >
+                        <Typography fontWeight={"light"}>ABOUT US</Typography>
                     </CardActionArea>
                 </Box>
             </SwipeableDrawer>
@@ -348,12 +370,15 @@ export default function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to={`/id`} style={{ textDecoration: 'none', textAlign: 'center', flexGrow: 1 }}>
-                        <Typography
-                            color={"black"}
-                        >
-                            KEKEAN
-                        </Typography>
+                    <Link
+                        to={`/id`}
+                        style={{
+                            textDecoration: "none",
+                            textAlign: "center",
+                            flexGrow: 1,
+                        }}
+                    >
+                        <Typography color={"black"}>KEKEAN</Typography>
                     </Link>
                     <IconButton
                         size="large"
@@ -397,14 +422,24 @@ export default function Navbar(props) {
                                     alignItems: "center",
                                 }}
                             >
-                                <Link to={'/'} style={{ textDecoration: 'none' }}>
+                                <Link
+                                    to={"/"}
+                                    style={{ textDecoration: "none" }}
+                                >
                                     <Typography
                                         color={"black"}
                                         fontSize={20}
                                         fontWeight={500}
                                         mr={4}
                                     >
-                                        Kekean <Box component='span' sx={{ color: 'primary.main' }}> Gallery</Box>
+                                        Kekean{" "}
+                                        <Box
+                                            component="span"
+                                            sx={{ color: "primary.main" }}
+                                        >
+                                            {" "}
+                                            Gallery
+                                        </Box>
                                     </Typography>
                                 </Link>
                                 {/* <Button
@@ -424,8 +459,11 @@ export default function Navbar(props) {
                                     </Typography>
                                 </Button> */}
                                 <Link
-                                    to={'/artikel'}
-                                    style={{ color: theme.textColor, textDecoration: 'none' }}
+                                    to={"/artikel"}
+                                    style={{
+                                        color: theme.textColor,
+                                        textDecoration: "none",
+                                    }}
                                 >
                                     <Typography
                                         sx={{
@@ -436,12 +474,15 @@ export default function Navbar(props) {
                                         color={theme.textColor}
                                         px={1}
                                     >
-                                        {t('navArticle')}
+                                        {t("navArticle")}
                                     </Typography>
                                 </Link>
                                 <Link
-                                    to={'/about'}
-                                    style={{ color: theme.textColor, textDecoration: 'none' }}
+                                    to={"/about"}
+                                    style={{
+                                        color: theme.textColor,
+                                        textDecoration: "none",
+                                    }}
                                 >
                                     <Typography
                                         sx={{
@@ -452,11 +493,15 @@ export default function Navbar(props) {
                                         color={theme.textColor}
                                         px={2}
                                     >
-                                        {t('navAbout')}
+                                        {t("navAbout")}
                                     </Typography>
                                 </Link>
-                                <Link to={'/customize'}
-                                    style={{ color: theme.textColor, textDecoration: 'none' }}
+                                <Link
+                                    to={"/customize"}
+                                    style={{
+                                        color: theme.textColor,
+                                        textDecoration: "none",
+                                    }}
                                 >
                                     <Typography
                                         sx={{
@@ -467,7 +512,7 @@ export default function Navbar(props) {
                                         color={theme.textColor}
                                         px={2}
                                     >
-                                        {t('navCustomize')}
+                                        {t("navCustomize")}
                                     </Typography>
                                 </Link>
                                 {/* <Typography

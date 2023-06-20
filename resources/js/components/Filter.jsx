@@ -18,15 +18,14 @@ import { useTranslation } from "react-i18next";
 import { useCustomization } from "../container/ProductCustomize/Customization";
 
 export default function Filter() {
-    const { filter, setFilter } = useCustomization()
-    
+    const { filter, setFilter } = useCustomization();
+
     const checkboxColor = {
         color: "primary.main",
         "&.Mui-checked": {
             color: "primary",
         },
     };
-    
 
     const width = "30px";
 
@@ -39,10 +38,10 @@ export default function Filter() {
     };
 
     const handleChange = (event) => {
-        setFilter(event.target.name)
-    }
+        setFilter(event.target.name);
+    };
 
-    const { t } = useTranslation()
+    const { t } = useTranslation();
 
     return (
         <Box>
@@ -75,25 +74,82 @@ export default function Filter() {
                     }}
                     expandIcon={<ExpandMoreIcon />}
                 >
-                    <Typography fontSize={{laptop: 15, desktop: 17}} className="fw-bolder">{t('sideMotif')}</Typography>
+                    <Typography
+                        fontSize={{ laptop: 15, desktop: 17 }}
+                        className="fw-bolder"
+                    >
+                        {t("sideMotif")}
+                    </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <RadioGroup defaultValue={'semua'}>
+                    <RadioGroup defaultValue={"semua"}>
                         <FormControlLabel
-                            control={<Radio sx={checkboxColor} onChange={handleChange} name='semua' value='semua'/>}
-                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Semua</Typography>}
+                            control={
+                                <Radio
+                                    sx={checkboxColor}
+                                    onChange={handleChange}
+                                    name="semua"
+                                    value="semua"
+                                />
+                            }
+                            label={
+                                <Typography
+                                    fontSize={{ laptop: 12, desktop: 17 }}
+                                >
+                                    Semua
+                                </Typography>
+                            }
                         />
                         <FormControlLabel
-                            control={<Radio sx={checkboxColor} onChange={handleChange} name='manis' value='manis'/>}
-                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Manis</Typography>}
+                            control={
+                                <Radio
+                                    sx={checkboxColor}
+                                    onChange={handleChange}
+                                    name="manis"
+                                    value="manis"
+                                />
+                            }
+                            label={
+                                <Typography
+                                    fontSize={{ laptop: 12, desktop: 17 }}
+                                >
+                                    Manis
+                                </Typography>
+                            }
                         />
                         <FormControlLabel
-                            control={<Radio sx={checkboxColor} onChange={handleChange} name='chakra' value='chakra'/>}
-                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Chakra</Typography>}
+                            control={
+                                <Radio
+                                    sx={checkboxColor}
+                                    onChange={handleChange}
+                                    name="chakra"
+                                    value="chakra"
+                                />
+                            }
+                            label={
+                                <Typography
+                                    fontSize={{ laptop: 12, desktop: 17 }}
+                                >
+                                    Chakra
+                                </Typography>
+                            }
                         />
                         <FormControlLabel
-                            control={<Radio sx={checkboxColor} onChange={handleChange} name='bhirawa' value='bhirawa'/>}
-                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Bhirawa</Typography>}
+                            control={
+                                <Radio
+                                    sx={checkboxColor}
+                                    onChange={handleChange}
+                                    name="bhirawa"
+                                    value="bhirawa"
+                                />
+                            }
+                            label={
+                                <Typography
+                                    fontSize={{ laptop: 12, desktop: 17 }}
+                                >
+                                    Bhirawa
+                                </Typography>
+                            }
                         />
                         {/* <FormControlLabel
                             control={<Checkbox sx={checkboxColor} />}
@@ -111,7 +167,7 @@ export default function Filter() {
                 </AccordionDetails>
             </Accordion>
             <hr></hr>
-            <Accordion
+            {/* <Accordion
                 sx={AccordionStyle}
                 disableGutters={true}
                 defaultExpanded={false}
@@ -149,7 +205,7 @@ export default function Filter() {
                     </FormGroup>
                 </AccordionDetails>
             </Accordion>
-            <hr></hr>
+            <hr></hr> */}
         </Box>
     );
 }

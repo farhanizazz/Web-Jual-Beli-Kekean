@@ -5,7 +5,7 @@ import {
     Routes,
     Route,
     useLocation,
-    Navigate
+    Navigate,
 } from "react-router-dom";
 import Main from "./container/Main";
 import CatalogPage from "./container/CatalogPage";
@@ -42,7 +42,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { grey } from "@mui/material/colors";
 import SplashScreen from "./container/SplashScreen";
 import Customize from "./container/Customize";
-import { environment } from "./environments/environment.js"
+import { environment } from "./environments/environment.js";
 import { CustomizationProvider } from "./container/ProductCustomize/Customization";
 import AddTexture from "./container/Admin/Texture/AddTexture";
 import AdminTexture from "./container/Admin/Texture/AdminTexture";
@@ -51,23 +51,42 @@ import { initReactI18next } from "react-i18next";
 
 export const LoadingContext = React.createContext();
 
-const translationEN = { navArticle: 'Article', navAbout: 'About Us', navCustomize: 'Customize your own product', hero: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit English.', sideMotif: 'Motive Type', sideUkuran: 'Size' }
-const translationID = { navArticle: 'Artikel', navAbout: 'Tentang Perusahaan', navCustomize: 'Buat produkmu sendiri', hero: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', sideMotif: 'Tipe Motif', sideUkuran: 'Ukuran' }
+const translationEN = {
+    navArticle: "Article",
+    navAbout: "About Us",
+    navCustomize: "Customize your own product",
+    hero: "Lorem ipsum dolor sit amet, consectetur adipiscing elit English.",
+    sideMotif: "Motive Type",
+    sideUkuran: "Size",
+    navLogin: "Masuk",
+};
+const translationID = {
+    navArticle: "Artikel",
+    navAbout: "Tentang Perusahaan",
+    navCustomize: "Buat produkmu sendiri",
+    hero: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    sideMotif: "Tipe Motif",
+    sideUkuran: "Ukuran",
+    navLogin: "Login",
+};
 
-i18next
-    .use(initReactI18next)
-    .init({
-        resources: {
-            en: { translation: translationEN },
-            id: { translation: translationID }
-        },
-        lng: 'id',
-        fallbackLng: 'id',
-        interpolation: { escapeValue: false },
-    })
+i18next.use(initReactI18next).init({
+    resources: {
+        en: { translation: translationEN },
+        id: { translation: translationID },
+    },
+    lng: "id",
+    fallbackLng: "id",
+    interpolation: { escapeValue: false },
+});
 
 function Navs() {
-    let path = (window.location.pathname).split("/")[1] == '' ? 'en' : ((window.location.pathname).split("/")[1] == 'id' ? 'id' : 'en');
+    let path =
+        window.location.pathname.split("/")[1] == ""
+            ? "en"
+            : window.location.pathname.split("/")[1] == "id"
+            ? "id"
+            : "en";
 
     const theme = createTheme({
         palette: {
@@ -132,9 +151,8 @@ function Navs() {
 
     // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     return (
-
         <React.StrictMode>
-            <Suspense fallback='Loading...'>
+            <Suspense fallback="Loading...">
                 <CustomizationProvider>
                     <QueryClientProvider client={queryClient}>
                         <ReactQueryDevtools />
@@ -190,7 +208,9 @@ function Navs() {
                                                 />
                                                 <Route
                                                     path="/artikel/:id"
-                                                    element={<ArticleDetailPage />}
+                                                    element={
+                                                        <ArticleDetailPage />
+                                                    }
                                                 />
                                                 <Route
                                                     path="/about"
@@ -198,7 +218,9 @@ function Navs() {
                                                 />
                                                 <Route
                                                     path="/cara-pengembalian"
-                                                    element={<CaraPengembalian />}
+                                                    element={
+                                                        <CaraPengembalian />
+                                                    }
                                                 />
                                                 <Route
                                                     path="/bantuan"
@@ -206,7 +228,9 @@ function Navs() {
                                                 />
                                                 <Route
                                                     path="/konfirmasi-transfer"
-                                                    element={<KonfirmasiTransfer />}
+                                                    element={
+                                                        <KonfirmasiTransfer />
+                                                    }
                                                 />
                                                 <Route
                                                     path="/customize"
