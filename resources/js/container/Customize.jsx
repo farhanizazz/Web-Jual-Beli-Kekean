@@ -33,12 +33,12 @@ export default function Customize(props) {
     const models = [
         {
             namaModel: 'Model 1',
-            gambar: '../storage/model/model1.png',
+            gambar: 'model1.png',
             file: 'model1.glb'
         },
         {
             namaModel: 'Model 2',
-            gambar: '../storage/model/model2.png',
+            gambar: 'model2.png',
             file: 'model2.glb'
         },
     ]
@@ -78,7 +78,7 @@ export default function Customize(props) {
                         <div className="col-6" onClick={() => setModel(item.file)}>
                             <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                 <div style={{ paddingTop: '100%', position: 'relative' }}>
-                                    <img src={`../storage/${item.gambar}`} className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
+                                    <img src={`/3dModel/.GLB/modelKustom/img/${item.gambar}`} className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
                                 </div>
                                 <p className="text-center mt-1" style={{ fontSize: 12 }}>{item.namaModel}</p>
                             </div>
