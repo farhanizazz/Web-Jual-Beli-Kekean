@@ -8,15 +8,15 @@ import { useCustomization } from "./ProductCustomize/Customization";
 export default function Customize(props) {
     const [texture, setTexture] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const [selection, setSelection] = React.useState('motif')
     const { materialDKa, setMaterialDKa } = useCustomization()
     const { materialKe, setMaterialKe } = useCustomization()
     const { materialDKi, setMaterialDKi } = useCustomization()
     const { materialKa, setMaterialKa } = useCustomization()
     const [seleksi, setSeleksi] = React.useState('dadaKanan')
+    const {model, setModel} = useCustomization()
     console.log('material', materialDKa)
     console.log('seleksi', seleksi)
-
-    let isMounted = true;
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -28,10 +28,70 @@ export default function Customize(props) {
             });
         };
         fetchData();
-        isMounted = false;
     }, []);
 
+    const models = [
+        {
+            namaModel: 'Model 1',
+            gambar: '../storage/model/model1.png',
+            file: 'model1.glb'
+        },
+        {
+            namaModel: 'Model 2',
+            gambar: '../storage/model/model2.png',
+            file: 'model2.glb'
+        },
+    ]
 
+    const pilihan = (param) => {
+        if (!loading) {
+            switch (param) {
+                case 'motif':
+                    return texture.map((item, id) => (<div className="col-6">
+                        <div onClick={() => {
+                            switch (seleksi) {
+                                case 'dadaKanan':
+                                    setMaterialDKa(`${item.image}`)
+                                    break;
+                                case 'dadaKiri':
+                                    setMaterialDKi(`${item.image}`)
+                                    break;
+                                case 'kerah':
+                                    setMaterialKe(`${item.image}`)
+                                    break;
+                                case 'kancing':
+                                    setMaterialKa(`${item.image}`)
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                            <div style={{ paddingTop: '100%', position: 'relative' }}>
+                                <img src={`../storage/${item.image}`} className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
+                            </div>
+                            <p className="text-center mt-1" style={{ fontSize: 12 }}>{item.nama}</p>
+                        </div>
+                    </div>))
+
+                case 'model':
+                    return models.map((item, id) => (
+                        <div className="col-6" onClick={() => setModel(item.file)}>
+                            <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                                <div style={{ paddingTop: '100%', position: 'relative' }}>
+                                    <img src={`../storage/${item.gambar}`} className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
+                                </div>
+                                <p className="text-center mt-1" style={{ fontSize: 12 }}>{item.namaModel}</p>
+                            </div>
+                        </div>
+                    ))
+
+                default:
+                    break;
+            }
+        } else {
+            return <p>Loading</p>
+        }
+    }
     return (
         <Container sx={{ px: 10, mt: 5 }}>
             <div className="card rounded border " style={{ border: '1px solid rgba(0, 0, 0, 0.32)', borderRadius: 20 }}>
@@ -72,11 +132,11 @@ export default function Customize(props) {
                                         </div>
                                         <p className="text-center mt-1" style={{ fontSize: 12 }}>Color</p>
                                     </div>
-                                    <div className="mx-auto p-1 color" style={{ cursor: 'pointer', width: 108, height: 89 }}>
+                                    <div className="mx-auto p-1 color" style={{ cursor: 'pointer', width: 108, height: 89 }} onClick={() => setSelection('motif')}>
                                         <div className="mx-auto" style={{ marginTop: 13, height: 46, width: 46, borderRadius: '50%', backgroundColor: 'green' }}>
                                             <img src="../images/motif-batik-dummy/parang.webp" className="mx-auto" style={{ borderRadius: '50%', objectFit: 'cover', width: 46, height: 46 }}></img>
                                         </div>
-                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>Pattern</p>
+                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>Motif</p>
                                     </div>
                                     <div className="mx-auto p-1 color" style={{ cursor: 'pointer', width: 108, height: 89 }}>
                                         <div className="fill-color mx-auto" style={{ marginTop: 13, height: 46, width: 46, borderRadius: '50%', backgroundColor: '#EAB3E8' }}>
@@ -84,10 +144,10 @@ export default function Customize(props) {
                                         </div>
                                         <p className="text-center mt-1" style={{ fontSize: 12 }}>Size</p>
                                     </div>
-                                    <div className="mx-auto p-1 color" style={{ cursor: 'pointer', width: 108, height: 89 }}>
+                                    <div className="mx-auto p-1 color" style={{ cursor: 'pointer', width: 108, height: 89 }} onClick={() => setSelection('model')}>
                                         <div className="fill-color mx-auto" style={{ marginTop: 13, height: 46, width: 46, borderRadius: '50%', backgroundColor: '#FF7D7D' }}>
                                         </div>
-                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>Orange</p>
+                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>Model</p>
                                     </div>
                                 </div>
 
@@ -101,106 +161,7 @@ export default function Customize(props) {
                                 <hr className="mx-3 mt-0" style={{ border: '2px solid #EBE4E4' }} />
                             </div>
                             <div className="row mx-3">
-                                {texture.map((item, id) => (<div className="col-6">
-                                    <div onClick={() => {
-                                        switch (seleksi) {
-                                            case 'dadaKanan':
-                                                setMaterialDKa(`${item.image}`)
-                                                break;
-                                            case 'dadaKiri':
-                                                setMaterialDKi(`${item.image}`)
-                                                break;
-                                            case 'kerah':
-                                                setMaterialKe(`${item.image}`)
-                                                break;
-                                            case 'kancing':
-                                                setMaterialKa(`${item.image}`)
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                    }} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
-                                        <div style={{ paddingTop: '100%', position: 'relative' }}>
-                                            <img src={`../storage/${item.image}`} className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
-                                        </div>
-                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>{item.nama}</p>
-                                    </div>
-                                </div>))}
-                                {/* <div className="col-6">
-                                    <div onClick={() => {
-                                        switch (seleksi) {
-                                            case 'dadaKanan':
-                                                setMaterialDKa('parang')
-                                                break;
-                                            case 'dadaKiri':
-                                                setMaterialDKi('parang')
-                                                break;
-                                            case 'kerah':
-                                                setMaterialKe('parang')
-                                                break;
-                                            case 'kancing':
-                                                setMaterialKa('parang')
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                    }} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
-                                        <div style={{ paddingTop: '100%', position: 'relative' }}>
-                                            <img src="../images/motif-batik-dummy/parang.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
-                                        </div>
-                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>Parang</p>
-                                    </div>
-                                </div>
-                                <div className="col-6">
-                                    <div onClick={() => {
-                                        switch (seleksi) {
-                                            case 'dadaKanan':
-                                                setMaterialDKa('megaMendung')
-                                                break;
-                                            case 'dadaKiri':
-                                                setMaterialDKi('megaMendung')
-                                                break;
-                                            case 'kerah':
-                                                setMaterialKe('megaMendung')
-                                                break;
-                                            case 'kancing':
-                                                setMaterialKa('megaMendung')
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                    }} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
-                                        <div style={{ paddingTop: '100%', position: 'relative' }}>
-                                            <img src="../images/motif-batik-dummy/mega-mendung.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
-                                        </div>
-                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>Mega Mendung</p>
-                                    </div>
-                                </div>
-                                <div className="col-6">
-                                    <div onClick={() => {
-                                        switch (seleksi) {
-                                            case 'dadaKanan':
-                                                setMaterialDKa('sagon')
-                                                break;
-                                            case 'dadaKiri':
-                                                setMaterialDKi('sagon')
-                                                break;
-                                            case 'kerah':
-                                                setMaterialKe('sagon')
-                                                break;
-                                            case 'kancing':
-                                                setMaterialKa('sagon')
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                    }} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
-                                        <div style={{ paddingTop: '100%', position: 'relative' }}>
-                                            <img src="../images/motif-batik-dummy/sagon.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover', position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, right: 0, bottom: 0 }}></img>
-                                        </div>
-                                        <p className="text-center mt-1" style={{ fontSize: 12 }}>Sagon</p>
-                                    </div> 
-                            </div>*/}
+                                {pilihan(selection)}
                             </div>
                         </div>
                         <div className="w-100">

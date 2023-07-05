@@ -9,11 +9,12 @@ import { useCustomization } from '../Customization'
 
 
 export function KemejaFixed(props) {
-  const { nodes, materials } = useGLTF('/3dModel/.GLB/KEMEJA FIXED.glb')
   const { materialDKa, setMaterialDKa } = useCustomization()
   const { materialKe, setMaterialKe } = useCustomization()
   const { materialDKi, setMaterialDKi } = useCustomization()
   const { materialKa, setMaterialKa } = useCustomization()
+  const { model, setModel } = useCustomization()
+  const { nodes, materials } = useGLTF(`/3dModel/.GLB/modelKustom/${model}`)
   const textureDadaKanan = useTexture({
     map: `../storage/${materialDKa}`,
     // map: "/3dModel/.GLB/Textures/Fabric_035_SD/Fabric_035_basecolor.jpg",
