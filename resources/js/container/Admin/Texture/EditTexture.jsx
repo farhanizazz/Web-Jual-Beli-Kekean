@@ -6,25 +6,49 @@ import {
     InputLabel,
     FormControl,
     Grid,
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
     Typography,
     Button,
     FormHelperText,
-    Select,
-    MenuItem,
 } from "@mui/material";
 import React from "react";
+import { DropzoneDialog } from "mui-file-dropzone";
 import { useNavigate, useParams } from "react-router";
-import axios from "axios";
+import { toBase64Handler } from "../../../base64converter/base64Converter";
 
-function EditPayment() {
-    const history = useNavigate();
-    const idPayment = useParams().id;
+
+
+export default function editTexture() {
+    const [imageDropzone, setImageDropzone] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
     const [input, setInput] = React.useState({
-        id: Number(idPayment),
-        namaBank: "",
-        rekening: "",
-        jenis: "",
+        nama: "",
+        image: '',
+        error_list: {
+            nama: "",
+            image: '',
+        },
     });
+
+    const history = useNavigate();
+
+    function handleOpenImage() {
+        setImageDropzone(true);
+    }
+
+    function handleCloseImage() {
+        setImageDropzone(false);
+    }
+
+    const checkboxColor = {
+        color: "primary.main",
+        "&.Mui-checked": {
+            color: "primary",
+        },
+    };
+
     const useStyles = makeStyles((theme) => ({
         root: {
             borderRadius: 10,
@@ -35,27 +59,6 @@ function EditPayment() {
             },
         },
     }));
-    const pilihanBank = () => {
-        if (input.jenis == 1) {
-            return (
-                <>
-                    <MenuItem value={"BCA"}>BCA</MenuItem>
-                    <MenuItem value={"Mandiri"}>Mandiri</MenuItem>
-                    <MenuItem value={"Cimb_Niaga"}>Cimb Niaga</MenuItem>
-                    <MenuItem value={"BNI"}>BNI</MenuItem>
-                </>
-            );
-        } else if (input.jenis == 2) {
-            return (
-                <>
-                    <MenuItem value={"OVO"}>OVO</MenuItem>
-                    <MenuItem value={"Dana"}>Dana</MenuItem>
-                    <MenuItem value={"Gopay"}>Gopay</MenuItem>
-                    <MenuItem value={"Shopeepay"}>Shopeepay</MenuItem>
-                </>
-            );
-        }
-    };
 
     const handleInput = (e) => {
         setInput({
@@ -64,14 +67,92 @@ function EditPayment() {
         });
     };
 
-    const savePayment = async (e) => {
-        e.preventDefault();
+    const handleCheckbox = (e) => {
+        setInput({
+            ...input,
+            has_3d: e.target.checked,
+        });
+    };
 
+    const handleSize = (e) => {
+        setSizes({
+            ...sizes,
+            [e.target.name]: e.target.checked,
+        });
+    };
+
+    const onFileChange = (e) => {
+        let files = e.target.files;
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(files[0]);
+
+        fileReader.onload = (event) => {
+            // this.setState({
+            //     selectedImage: event.target.result,
+            // })
+            setInput({
+                ...input,
+                model_3d: event.target.result,
+            });
+        };
+    };
+
+    const handleImage = async (files) => {
+        const base64img = await toBase64Handler(files);
+        setInput({ ...input, image: JSON.stringify(base64img) });
+
+        // if(!files[1]) {
+        //     files[1] = {name: ''}
+        // }
+        // if(!files[2]) {
+        //     files[2] = {name: ''}
+        // }
+
+        //Old code
+        // let imgData = new FormData();
+        // if (files.length == 1) {
+        //     setInput({
+        //         ...input,
+        //         image_detail1: files[0].name,
+        //         // image_detail2: files[1].name,
+        //         // imagedetail3: files[2].name
+        //     });
+        //     imgData.append("image", files[0]);
+        // } else if (files.length == 2) {
+        //     setInput({
+        //         ...input,
+        //         image_detail1: files[0].name,
+        //         image_detail2: files[1].name,
+        //         // image_detail3: files[2].name
+        //     });
+        //     imgData.append("image[]", files[0]);
+        //     imgData.append("image[]", files[1]);
+        // } else if (files.length == 3) {
+        //     setInput({
+        //         ...input,
+        //         image_detail1: files[0].name,
+        //         image_detail2: files[1].name,
+        //         image_detail3: files[2].name,
+        //     });
+        //     imgData.append("image[]", files[0]);
+        //     imgData.append("image[]", files[1]);
+        //     imgData.append("image[]", files[2]);
+        // }
+
+        // const res = await axios.post("api/save-image", imgData);
+        // if (res.data.status === 200) {
+        //     console.log(res.data.message);
+        // }
+        handleCloseImage();
+    };
+
+    const saveTexture = async (e) => {
+        e.preventDefault();
         axios.get("/sanctum/csrf-cookie").then((response) => {
-            axios.put("/api/update-payment", input).then((res) => {
-                if (res.data.status === true) {
+            axios.put("api/texture", input).then((res) => {
+                if (res.data.status === 200) {
                     console.log(res.data.message);
-                    history("/admin/payment");
+                    history("/admin/texture");
                 } else {
                     setInput({
                         ...input,
@@ -80,18 +161,31 @@ function EditPayment() {
                 }
             });
         });
+        // axios.get("/sanctum/csrf-cookie").then((response) => {
+        //     axios.post("/api/login", input).then((res) => {
+        //         if (res.data.status === 200) {
+        //             console.log(res.data.message);
+        //             setInput({
+        //                 nama: "",
+        //                 price: "",
+        //                 description: "",
+        //                 has_3d: e.target.checked,
+        //             });
+        //         }
+        //     });
+        // });
     };
 
+    const prod_id = useParams();
+
     React.useEffect(() => {
-        axios.get(`/api/payments/${idPayment}`).then((res) => {
-            console.log(res);
-            setInput({
-                ...input,
-                jenis: Number(res.data.payments.jenis),
-                namaBank: res.data.payments.nama_bank,
-                rekening: res.data.payments.nomor_rekening,
+        const fetchData = () => {
+            axios.get(`api/texture/${prod_id.id}`).then((res) => {
+                setInput({ ...input, ...res.data.data });
+                setLoading(false);
             });
-        });
+        };
+        fetchData();
     }, []);
 
     const classes = useStyles();
@@ -99,121 +193,17 @@ function EditPayment() {
         <Container sx={{ my: 5 }}>
             <Paper elevation={5}>
                 <Container sx={{ py: 5 }}>
-                    <form onSubmit={savePayment} encType="multipart/form-data">
+                    <form onSubmit={saveTexture} encType="multipart/form-data">
                         <Grid container spacing={2}>
-                            <Grid item mobile={6}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">
-                                        Bank / E-Wallet
-                                    </InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        label="Bank / E-Wallet"
-                                        name="jenis"
-                                        value={input.jenis}
-                                        onChange={handleInput}
-                                    >
-                                        <MenuItem value={1}>Bank</MenuItem>
-                                        <MenuItem value={2}>Ewallet</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-
-                            <Grid item mobile={6}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">
-                                        {input.jenis != null
-                                            ? `Nama ${
-                                                  input.jenis == 1
-                                                      ? "Bank"
-                                                      : "E-Wallet"
-                                              }`
-                                            : "Silahkan pilih jenis rekening"}
-                                    </InputLabel>
-                                    <Select
-                                        disabled={input.jenis == null}
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        label={
-                                            input.jenis != null
-                                                ? `Nama ${
-                                                      input.jenis == 1
-                                                          ? "Bank"
-                                                          : "E-Wallet"
-                                                  }`
-                                                : "Silahkan pilih jenis rekening"
-                                        }
-                                        name="namaBank"
-                                        value={input.namaBank}
-                                        onChange={handleInput}
-                                    >
-                                        {input.jenis == 1
-                                            ? [
-                                                  <MenuItem
-                                                      key={1}
-                                                      value={"BCA"}
-                                                  >
-                                                      BCA
-                                                  </MenuItem>,
-                                                  <MenuItem
-                                                      key={2}
-                                                      value={"Mandiri"}
-                                                  >
-                                                      Mandiri
-                                                  </MenuItem>,
-                                                  <MenuItem
-                                                      key={3}
-                                                      value={"Cimb_Niaga"}
-                                                  >
-                                                      Cimb Niaga
-                                                  </MenuItem>,
-                                                  <MenuItem
-                                                      key={4}
-                                                      value={"BNI"}
-                                                  >
-                                                      BNI
-                                                  </MenuItem>,
-                                              ]
-                                            : [
-                                                  <MenuItem
-                                                      key={1}
-                                                      value={"OVO"}
-                                                  >
-                                                      OVO
-                                                  </MenuItem>,
-                                                  <MenuItem
-                                                      key={2}
-                                                      value={"Dana"}
-                                                  >
-                                                      Dana
-                                                  </MenuItem>,
-                                                  <MenuItem
-                                                      key={3}
-                                                      value={"Gopay"}
-                                                  >
-                                                      Gopay
-                                                  </MenuItem>,
-                                                  <MenuItem
-                                                      key={4}
-                                                      value={"Shopeepay"}
-                                                  >
-                                                      Shopeepay
-                                                  </MenuItem>,
-                                              ]}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-
-                            {/* <Grid item mobile={6}>
+                            <Grid item mobile={12}>
                                 <FormControl fullWidth variant="filled">
                                     <InputLabel htmlFor="component-filled">
-                                        Nama Bank / E-Wallet
+                                        Nama Tekstur
                                     </InputLabel>
                                     <FilledInput
-                                        value={input.namaBank}
+                                        value={input.nama}
                                         onChange={handleInput}
-                                        name="namaBank"
+                                        name="nama"
                                         id="component-filled"
                                         disableUnderline={true}
                                         classes={{
@@ -225,32 +215,33 @@ function EditPayment() {
                                 <FormHelperText
                                     sx={{ color: "red", fontSize: 10 }}
                                 >
-                                    {input.error_list.product_name}
+                                    {input.error_list.nama}
                                 </FormHelperText>
-                            </Grid> */}
+                            </Grid>
 
                             <Grid item mobile={12}>
-                                <FormControl fullWidth variant="filled">
-                                    <InputLabel htmlFor="component-filled">
-                                        Nomor Rekening
-                                    </InputLabel>
-                                    <FilledInput
-                                        value={input.rekening}
-                                        onChange={handleInput}
-                                        name="rekening"
-                                        id="component-filled"
-                                        disableUnderline={true}
-                                        classes={{
-                                            root: classes.root,
-                                            input: classes.input,
-                                        }}
-                                    />
-                                    <FormHelperText
-                                        sx={{ color: "red", fontSize: 10 }}
-                                    >
-                                        {/* {input.error_list.price} */}
-                                    </FormHelperText>
-                                </FormControl>
+                                <Typography fontWeight={"medium"}>
+                                    Gambar Tekstur
+                                </Typography>
+                                <Button
+                                    variant="contained"
+                                    onClick={handleOpenImage}
+                                >
+                                    <Typography color={"white"}>
+                                        Add Image
+                                    </Typography>
+                                </Button>
+                                <DropzoneDialog
+                                    open={imageDropzone}
+                                    onClose={handleCloseImage}
+                                    onSave={handleImage}
+                                    filesLimit={1}
+                                    maxFileSize={50000000}
+                                    acceptedFiles={["image/*"]}
+                                />
+                                <Typography color={"red"}>
+                                    {input.error_list.image}
+                                </Typography>
                             </Grid>
 
                             <Grid sx={{ mt: 5 }} item mobile={12}>
@@ -276,5 +267,3 @@ function EditPayment() {
         </Container>
     );
 }
-
-export default EditPayment;

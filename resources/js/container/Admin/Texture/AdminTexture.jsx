@@ -54,7 +54,7 @@ function AdminTexture() {
                                 c.field
                             ))
                         );
-                    history(`/admin/editPayment/${thisRow.id}`);
+                    history(`/admin/editTexture/${thisRow.id}`);
                 };
                 const handleDelete = async (e) => {
 

@@ -45,6 +45,7 @@ import Customize from "./container/Customize";
 import { environment } from "./environments/environment.js";
 import { CustomizationProvider } from "./container/ProductCustomize/Customization";
 import AddTexture from "./container/Admin/Texture/AddTexture";
+import editTexture from "./container/Admin/Texture/EditTexture";
 import AdminTexture from "./container/Admin/Texture/AdminTexture";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
@@ -333,6 +334,15 @@ function Navs() {
                                                     element={
                                                         <AdminPrivateRoute
                                                             comp={AdminTexture}
+                                                        />
+                                                    }
+                                                />
+                                                <Route
+                                                    path="/admin/editTexture/:id"
+                                                    name="Admin"
+                                                    element={
+                                                        <AdminPrivateRoute
+                                                            comp={editTexture}
                                                         />
                                                     }
                                                 />
