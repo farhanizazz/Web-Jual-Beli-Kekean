@@ -15,6 +15,7 @@ import {
     RadioGroup,
     Radio,
     FormLabel,
+    LinearProgress,
 } from "@mui/material";
 import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
@@ -47,6 +48,7 @@ export default function AddProduct() {
             model_3d: "",
         },
     });
+    const [progress, setProgress] = React.useState(0)
 
     const history = useNavigate();
 
@@ -168,7 +170,12 @@ export default function AddProduct() {
         let data = { input, sizes };
         console.log(data);
         axios.get("/sanctum/csrf-cookie").then((response) => {
-            axios.post("api/add-product", data).then((res) => {
+            axios.post("api/add-product", data, {
+                onUploadProgress: (data) => {
+                    setProgress(Math.round((data.loaded / data.total) * 100))
+                    // console.log(Math.round((data.loaded / data.total) * 100))
+                }
+            }).then((res) => {
                 if (res.data.status === 200) {
                     console.log(res.data.message);
                     history("/admin");
@@ -418,6 +425,7 @@ export default function AddProduct() {
                                             name="model_3d"
                                             onChange={onFileChange}
                                         />
+                                        <LinearProgress sx={{mt: 1}} variant="determinate" value={progress} />
                                     </div>
                                 </FormGroup>
                             </Grid>
