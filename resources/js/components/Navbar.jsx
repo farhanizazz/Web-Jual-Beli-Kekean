@@ -351,6 +351,12 @@ export default function Navbar(props) {
                     >
                         <Typography fontWeight={"light"}>ABOUT US</Typography>
                     </CardActionArea>
+                    <CardActionArea
+                        sx={{ p: 2 }}
+                        onClick={() => history("/customize")}
+                    >
+                        <Typography fontWeight={"light"}>Customize Product</Typography>
+                    </CardActionArea>
                 </Box>
             </SwipeableDrawer>
             <AppBar
