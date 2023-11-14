@@ -27,6 +27,7 @@ export default function Cart() {
         XL: "0",
         XXL: "0",
     });
+    s
     const [quantity, setQuantity] = React.useState(0);
     let isMounted = true;
     const { productId } = useParams();
