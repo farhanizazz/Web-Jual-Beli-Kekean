@@ -107,7 +107,7 @@ export default function MainPage(props) {
                             local Indonesian cultural values. This business was
                             established in Bali on December 2, 2014. Kekean
                             Wastra Gallery focuses on sustainable fashion with
-                            Batik, Weaving, and Embroidery.
+                            Batik, Weaving, and Embroidery. Test
                         </Typography>
                     </Container>
                 </Grid>
